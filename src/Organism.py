@@ -43,7 +43,6 @@ class Organism:
         action_neuron_id = np.random.choice(len(output_neuron_ids)+1, p=action_probs)
 
         # output neuron actions
-        # if action_neuron_id == 12:
 
 
 
