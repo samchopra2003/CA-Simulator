@@ -43,6 +43,7 @@ class NeuralNetwork:
             # instantiate neurons
             source_neuron = create_neuron(gene.source_neuron_id)
             sink_neuron = create_neuron(gene.sink_neuron_id)
+            synaptic_weight = gene.weight
 
             # # sink neuron has to be either hidden or output in current config
             # if gene.sink_neuron_id not in self.neuron_inputs:
@@ -50,9 +51,9 @@ class NeuralNetwork:
 
             # self.synapses.append([source_neuron, sink_neuron])
             if source_neuron.neuron_class == 0:  # Input neuron
-                self.input_source_synapses.append([source_neuron, sink_neuron])
+                self.input_source_synapses.append([source_neuron, sink_neuron, synaptic_weight])
             else:  # Hidden neuron
-                self.hidden_source_synapses.append([source_neuron, sink_neuron])
+                self.hidden_source_synapses.append([source_neuron, sink_neuron, synaptic_weight])
 
             self.enabled_neurons.append(gene.source_neuron_id)
             self.enabled_neurons.append(gene.sink_neuron_id)
@@ -127,8 +128,9 @@ class NeuralNetwork:
             for syn in self.input_source_synapses:
                 source_neuron = syn[0]
                 sink_neuron = syn[1]
+                synaptic_weight = syn[2]
                 input_out = source_neuron.forward(organism, world_state)
-                # print("inp_out = ", input_out, "source neu id = ", source_neuron.neuron_id)
+                input_out *= synaptic_weight
                 self.neuron_inputs[sink_neuron.neuron_id].append(input_out)
 
         outputs = []
@@ -137,14 +139,14 @@ class NeuralNetwork:
             for syn in self.hidden_source_synapses:
                 source_neuron = syn[0]
                 sink_neuron = syn[1]
+                synaptic_weight = syn[2]
                 # tanh Activation Function
                 if self.neuron_inputs[source_neuron.neuron_id]:
                     input_prob = np.tanh(np.sum(self.neuron_inputs[source_neuron.neuron_id]))
                 else:
                     input_prob = 0
                 hidden_out = source_neuron.forward(organism, world_state, input_prob=input_prob)
-                # print(self.neuron_inputs)
-                # print("neu id = ", sink_neuron.neuron_id)
+                hidden_out *= synaptic_weight
                 self.neuron_inputs[sink_neuron.neuron_id].append(hidden_out)
 
             # Evaluate Output Neurons

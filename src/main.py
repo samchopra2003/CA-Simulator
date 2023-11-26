@@ -4,7 +4,7 @@ import numpy as np
 from dotenv import load_dotenv
 
 from Organism import Organism
-from utils.gui import render_image, render_video
+from utils.gui import render_video
 from utils.step import step
 
 load_dotenv()
