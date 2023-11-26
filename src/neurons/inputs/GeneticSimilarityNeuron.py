@@ -23,9 +23,9 @@ class GeneticSimilarityNeuron(Neuron):
     def __init__(self):
         super().__init__(neu_id=neuron_id, neu_class=neuron_class)
 
-    def forward(self, organism, world_state, input_prob=None):
+    def forward(self, organism, world_state: np.ndarray, input_prob: float = None):
         neighbourhood_size = GENETIC_SIMILARITY_NEIGHBOURHOOD_SIZE
-        row, col = organism.location
+        row, col = organism.position['y'], organism.position['x']
 
         center_x = (neighbourhood_size - 1) // 2
         center_y = (neighbourhood_size - 1) // 2
@@ -50,6 +50,8 @@ class GeneticSimilarityNeuron(Neuron):
                         genetic_similarity_score += 1
                         break
 
-            genetic_similarity_scores.append(genetic_similarity_score)
+            genetic_similarity_scores.append(genetic_similarity_score / (len(organism.genome.gene_list) + 1.e-10))
 
+        if len(genetic_similarity_scores) == 0:
+            return 0
         return np.average(genetic_similarity_scores)

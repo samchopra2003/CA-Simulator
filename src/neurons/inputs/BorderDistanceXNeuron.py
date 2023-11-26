@@ -1,5 +1,6 @@
 import os
 
+import numpy as np
 from dotenv import load_dotenv
 
 from src.neurons.Neuron import Neuron
@@ -20,5 +21,5 @@ class BorderDistanceXNeuron(Neuron):
     def __init__(self):
         super().__init__(neu_id=neuron_id, neu_class=neuron_class)
 
-    def forward(self, organism, world_state=None, input_prob=None):
-        return min(abs(WORLD_SIZE_COLS - organism.location[1]), organism.location[1])
+    def forward(self, organism, world_state: np.ndarray = None, input_prob: float = None):
+        return min(abs(WORLD_SIZE_COLS - organism.position['x']), organism.position['x']) / WORLD_SIZE_COLS

@@ -13,6 +13,9 @@ INPUT_NEURONS = int(os.getenv("INPUT_NEURONS"))
 HIDDEN_NEURONS = int(os.getenv("HIDDEN_NEURONS"))
 OUTPUT_NEURONS = int(os.getenv("OUTPUT_NEURONS"))
 
+MUTATION_RATE_STRUCT = float(os.getenv("MUTATION_RATE_STRUCT"))
+MUTATION_RATE_NON_STRUCT = float(os.getenv("MUTATION_RATE_STRUCT"))
+
 
 class Genome:
     def __init__(self):
@@ -20,24 +23,26 @@ class Genome:
 
         self._build_genome()
 
+        # TODO: Implement _mutate function
+
     def _build_genome(self):
         # TODO: No self connections and same class connections (e.g. no input to input conn) permitted right now
         total_neurons = np.sum([INPUT_NEURONS, HIDDEN_NEURONS, OUTPUT_NEURONS])
         for _ in range(GENOME_START_LENGTH):
-            neuron_1_id = np.random.uniform(0, total_neurons)
+            neuron_1_id = np.random.randint(0, total_neurons)
             if neuron_1_id <= INPUT_NEURONS:  # Neuron 1 Input
-                neuron_2_id = np.random.uniform(INPUT_NEURONS, total_neurons)
+                neuron_2_id = np.random.randint(INPUT_NEURONS, total_neurons)
                 source_id = neuron_1_id
                 sink_id = neuron_2_id
 
             elif neuron_1_id <= INPUT_NEURONS + OUTPUT_NEURONS:  # Neuron 1 Output
-                neuron_2_id = np.max([np.random.uniform(INPUT_NEURONS + OUTPUT_NEURONS, total_neurons),
-                                      np.random.uniform(0, INPUT_NEURONS)])
+                neuron_2_id = np.max([np.random.randint(INPUT_NEURONS + OUTPUT_NEURONS, total_neurons),
+                                      np.random.randint(0, INPUT_NEURONS)])
                 source_id = neuron_2_id
                 sink_id = neuron_1_id
 
             else:  # Neuron 1 Hidden
-                neuron_2_id = np.random.uniform(0, INPUT_NEURONS + OUTPUT_NEURONS)
+                neuron_2_id = np.random.randint(0, INPUT_NEURONS + OUTPUT_NEURONS)
                 if neuron_2_id <= INPUT_NEURONS:
                     source_id = neuron_2_id
                     sink_id = neuron_1_id
@@ -51,3 +56,6 @@ class Genome:
                     continue
 
             self.gene_list.append(Gene(source_id, sink_id))
+
+    def _mutate(self):
+        pass

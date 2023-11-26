@@ -22,7 +22,7 @@ INPUT_NEURONS = int(os.getenv("INPUT_NEURONS"))
 OUTPUT_NEURONS = int(os.getenv("OUTPUT_NEURONS"))
 
 
-def create_neuron(neuron_id):
+def create_neuron(neuron_id: int):
     """
     :param neuron_id: Must be between 1 and 17 + HIDDEN_NEURONS
     :return: Neuron

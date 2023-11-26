@@ -1,5 +1,6 @@
 import os
 
+import numpy as np
 from dotenv import load_dotenv
 
 from src.neurons.Neuron import Neuron
@@ -20,9 +21,9 @@ class PredatorDetectionNeuron(Neuron):
     def __init__(self):
         super().__init__(neu_id=neuron_id, neu_class=neuron_class)
 
-    def forward(self, organism, world_state, input_prob=None):
+    def forward(self, organism, world_state: np.ndarray, input_prob: float = None):
         neighbourhood_size = PREDATOR_DETECTION_NEIGHBOURHOOD_SIZE
-        row, col = organism.location
+        row, col = organism.position['y'], organism.position['x']
 
         center_x = (neighbourhood_size - 1) // 2
         center_y = (neighbourhood_size - 1) // 2
