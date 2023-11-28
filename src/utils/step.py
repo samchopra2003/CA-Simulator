@@ -13,4 +13,3 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism]):
     for org in organisms:
         # TODO: Kill functionality not created yet
         org.step(world, world_state)
-        org.age += 1

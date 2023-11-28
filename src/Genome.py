@@ -58,4 +58,29 @@ class Genome:
             self.gene_list.append(Gene(source_id, sink_id))
 
     def _mutate(self):
-        pass
+        """
+        Applies structural or non-structural mutation to the gene.
+        :return: None
+        """
+        # Structural mutation
+        if np.random.random() < MUTATION_RATE_STRUCT:
+            # 0 for addition of synapse, 1 for removal of synapse
+            # 2 for addition of hidden neuron, 3 for removal of hidden neuron
+            mutation_type = np.random.choice(np.array([0, 1, 2, 3]))
+            if mutation_type == 0:  # addition of synapse
+                pass
+            elif mutation_type == 1:  # removal of synapse
+                pass
+            elif mutation_type == 2:  # addition of hidden neuron
+                pass
+            else:  # removal of hidden neuron
+                pass
+
+        if np.random.random() < MUTATION_RATE_NON_STRUCT:
+            # 0 for delta to an existing random synaptic weight
+            # 1 for a completely new random synaptic weight
+            mutation_type = np.random.choice(np.array([0, 1]))
+            if mutation_type == 0:  # change synaptic weight
+                pass
+            else:  # new synaptic weight
+                pass

@@ -110,3 +110,5 @@ class Organism:
         elif action_neuron.neuron_id == 17:  # Kill forward neighbour
             # TODO: Implement kill function
             pass
+
+        self.age += 1
