@@ -39,8 +39,9 @@ if __name__ == '__main__':
         # create organism
         organism = Organism(pos, color)
         organism_list.append(organism)
+        world_state[pos] = organism
 
-    # Start simulation
+        # Start simulation
     for gen in range(NUM_GENERATIONS):
         for gen_step in range(STEPS_PER_GEN):
             print(f"Generation {gen} Step {gen_step}")

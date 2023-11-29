@@ -20,3 +20,10 @@ class Gene:
         self.sink_neuron_id = sink_neu_id
         self.weight = weight
         # TODO: Maybe add bias var
+
+    def init_new_weight(self):
+        """
+        Initializes new weight due to non-structural mutation
+        :return: None
+        """
+        self.weight = np.random.uniform(WEIGHT_INIT_LOWER, WEIGHT_INIT_UPPER)
