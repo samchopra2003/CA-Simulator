@@ -7,7 +7,7 @@ import uuid
 from Genome import Genome
 from NeuralNetwork import NeuralNetwork
 from neurons.Neuron import Neuron
-from utils.move import move_right, move_left, move_up, move_down
+from utils.move import move_right, move_left, move_up, move_down, die
 
 load_dotenv()
 
@@ -37,6 +37,7 @@ class Organism:
         self.sex = sex
         self.time_to_live = time_to_live
         self.fitness = fitness
+        self.alive = True
 
         # historical info
         self.parents = parents
@@ -112,3 +113,5 @@ class Organism:
             pass
 
         self.age += 1
+        if self.age == self.time_to_live:   # death
+            die(world, world_state, self)

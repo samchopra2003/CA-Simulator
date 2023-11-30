@@ -12,10 +12,15 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism]):
     :return: None
     """
     fitnesses = []
-    for org in organisms:
+    for org_idx, org in enumerate(organisms):
         # TODO: Kill functionality not created yet
         org.step(world, world_state)
         fitnesses.append(org.fitness)
+
+    # remove dead organisms
+    dead_org_idxs = [idx for idx, org in enumerate(organisms) if not org.alive]
+    for idx in reversed(dead_org_idxs):
+        organisms.pop(idx)
 
     # update monitor
     monitor = Monitor()

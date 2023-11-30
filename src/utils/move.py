@@ -70,3 +70,9 @@ def move_down(world: np.ndarray, world_state: np.ndarray, organism):
         organism.position['y'] += 1
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
+
+
+def die(world: np.ndarray, world_state: np.ndarray, organism):
+    world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
+    world_state[organism.position['y'], organism.position['x']] = 0
+    organism.alive = False
