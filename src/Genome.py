@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 from Gene import Gene
 from neurons.lookup_neuron_class import lookup_neuron_class
+from utils.Monitor import Monitor
 
 load_dotenv()
 
@@ -22,6 +23,8 @@ WEIGHT_INIT_UPPER = int(os.getenv("WEIGHT_INIT_UPPER"))
 WEIGHT_DELTA = int(os.getenv("WEIGHT_DELTA"))
 
 TOTAL_NEURONS = np.sum([INPUT_NEURONS, HIDDEN_NEURONS, OUTPUT_NEURONS])
+
+monitor = Monitor()
 
 
 class Genome:
@@ -124,6 +127,8 @@ class Genome:
                 self.gene_list = \
                     [item for idx, item in enumerate(self.gene_list) if idx not in removed_idxs]
 
+            monitor.total_mutations += 1
+
         # Non-structural mutation
         if np.random.random() < MUTATION_RATE_NON_STRUCT:
             # 0 for delta to an existing random synaptic weight
@@ -135,3 +140,5 @@ class Genome:
                 self.gene_list[mutated_gene_idx].weight += weight_delta
             else:  # new synaptic weight
                 self.gene_list[mutated_gene_idx].init_new_weight()
+
+            monitor.total_mutations += 1

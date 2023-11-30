@@ -4,7 +4,7 @@ import numpy as np
 from dotenv import load_dotenv
 
 from Organism import Organism
-from Monitor import Monitor
+from utils.Monitor import Monitor
 from utils.gui import render_video
 from utils.step import step
 
@@ -25,10 +25,12 @@ FOOD_QUANTITY = int(os.getenv("FOOD_QUANTITY"))
 REPRODUCTION_RATE = float(os.getenv("REPRODUCTION_RATE"))
 TIME_TO_LIVE = int(os.getenv("TIME_TO_LIVE"))
 VIDEO_RENDER_FREQ = int(os.getenv("VIDEO_RENDER_FREQ"))
+MONITOR_FREQ = int(os.getenv("MONITOR_FREQ"))
 
 if __name__ == '__main__':
     world = np.ones((WORLD_SIZE_ROWS, WORLD_SIZE_COLS, 3), dtype=np.uint8) * WORLD_BACKGROUND_COLOR
     world_state = np.zeros((WORLD_SIZE_ROWS, WORLD_SIZE_COLS), dtype=object)
+    monitor = Monitor()
 
     # Generate starting population
     organism_list = []
@@ -42,13 +44,17 @@ if __name__ == '__main__':
             organism_list.append(organism)
             world_state[pos] = organism
 
-    monitor = Monitor(organism_list)
-
     # Start simulation
     for gen in range(NUM_GENERATIONS):
         for gen_step in range(STEPS_PER_GEN):
-            print(f"Generation {gen} Step {gen_step}")
             step(world, world_state, organism_list)
 
             if (gen_step + 1) % VIDEO_RENDER_FREQ == 0:
                 render_video(world, default_size=False, dsize=(512, 512), frame_rate=10)
+
+            if (gen_step + 1) % MONITOR_FREQ == 0:
+                print("----------------------")
+                print(f"Generation {gen} Step {gen_step+1}")
+                print("----------------------")
+                monitor.print_monitor()
+                print("-----------------------")
