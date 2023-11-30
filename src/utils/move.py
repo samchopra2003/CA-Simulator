@@ -18,8 +18,8 @@ def move_right(world: np.ndarray, world_state: np.ndarray, organism):
     """
     if organism.position['x'] < WORLD_SIZE_COLS - 1 and \
             world_state[organism.position['y'], organism.position['x'] + 1] == 0:
-        world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
-        world_state[organism.position['y'], organism.position['x']] = 0
+        # world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
+        # world_state[organism.position['y'], organism.position['x']] = 0
         organism.position['x'] += 1
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
@@ -33,8 +33,8 @@ def move_left(world: np.ndarray, world_state: np.ndarray, organism):
     :return: None
     """
     if organism.position['x'] > 0 and world_state[organism.position['y'], organism.position['x'] - 1] == 0:
-        world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
-        world_state[organism.position['y'], organism.position['x']] = 0
+        # world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
+        # world_state[organism.position['y'], organism.position['x']] = 0
         organism.position['x'] -= 1
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
@@ -49,8 +49,8 @@ def move_up(world: np.ndarray, world_state: np.ndarray, organism):
     """
     if organism.position['y'] > 0 and \
             world_state[organism.position['y'] - 1, organism.position['x']] == 0:
-        world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
-        world_state[organism.position['y'], organism.position['x']] = 0
+        # world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
+        # world_state[organism.position['y'], organism.position['x']] = 0
         organism.position['y'] -= 1
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
@@ -65,8 +65,8 @@ def move_down(world: np.ndarray, world_state: np.ndarray, organism):
     """
     if organism.position['y'] < WORLD_SIZE_ROWS - 1 and \
             world_state[organism.position['y'] + 1, organism.position['x']] == 0:
-        world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
-        world_state[organism.position['y'], organism.position['x']] = 0
+        # world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
+        # world_state[organism.position['y'], organism.position['x']] = 0
         organism.position['y'] += 1
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
