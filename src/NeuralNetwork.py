@@ -129,7 +129,7 @@ class NeuralNetwork:
                 source_neuron = syn[0]
                 sink_neuron = syn[1]
                 synaptic_weight = syn[2]
-                input_out = source_neuron.forward(organism, world_state)
+                input_out = source_neuron.forward(organism, world_state.copy())
                 input_out *= synaptic_weight
                 self.neuron_inputs[sink_neuron.neuron_id].append(input_out)
 
@@ -145,7 +145,7 @@ class NeuralNetwork:
                     input_prob = np.tanh(np.sum(self.neuron_inputs[source_neuron.neuron_id]))
                 else:
                     input_prob = 0
-                hidden_out = source_neuron.forward(organism, world_state, input_prob=input_prob)
+                hidden_out = source_neuron.forward(organism, world_state.copy(), input_prob=input_prob)
                 hidden_out *= synaptic_weight
                 self.neuron_inputs[sink_neuron.neuron_id].append(hidden_out)
 
@@ -158,7 +158,7 @@ class NeuralNetwork:
                     input_prob = np.tanh(np.sum(self.neuron_inputs[source_neuron.neuron_id]))
                 else:
                     input_prob = 0
-                out = source_neuron.forward(organism, world_state, input_prob=input_prob)
+                out = source_neuron.forward(organism, world_state.copy(), input_prob=input_prob)
                 outputs.append(out)
                 output_neurons.append(sink_neuron)
 

@@ -4,6 +4,7 @@ import numpy as np
 from dotenv import load_dotenv
 
 from Organism import Organism
+from Monitor import Monitor
 from utils.gui import render_video
 from utils.step import step
 
@@ -33,19 +34,21 @@ if __name__ == '__main__':
     organism_list = []
     for _ in range(STARTING_POPULATION):
         pos = (np.random.randint(0, WORLD_SIZE_ROWS), np.random.randint(0, WORLD_SIZE_COLS))
-        color = np.random.randint(0, 256, size=3, dtype=np.uint8)
-        world[pos] = color
+        if world_state[pos] == 0:
+            color = np.random.randint(0, 256, size=3, dtype=np.uint8)
+            world[pos] = color
+            # create organism
+            organism = Organism(pos, color)
+            organism_list.append(organism)
+            world_state[pos] = organism
 
-        # create organism
-        organism = Organism(pos, color)
-        organism_list.append(organism)
-        world_state[pos] = organism
+    monitor = Monitor(organism_list)
 
-        # Start simulation
+    # Start simulation
     for gen in range(NUM_GENERATIONS):
         for gen_step in range(STEPS_PER_GEN):
             print(f"Generation {gen} Step {gen_step}")
             step(world, world_state, organism_list)
 
-            if (gen_step + 1) % VIDEO_RENDER_FREQ:
+            if (gen_step + 1) % VIDEO_RENDER_FREQ == 0:
                 render_video(world, default_size=False, dsize=(512, 512), frame_rate=10)
