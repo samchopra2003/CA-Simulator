@@ -8,15 +8,21 @@ from Genome import Genome
 from NeuralNetwork import NeuralNetwork
 from neurons.Neuron import Neuron
 from utils.move import move_right, move_left, move_up, move_down, die, kill
+from utils.reproduce import reproduce
 
 load_dotenv()
 
 TIME_TO_LIVE = int(os.getenv("TIME_TO_LIVE"))
 
+MAX_FERTILITY_PROBABILITY = float(os.getenv("MAX_FERTILITY_PROBABILITY"))
+MIN_FERTILITY_PROBABILITY = float(os.getenv("MIN_FERTILITY_PROBABILITY"))
+
+MIN_REPRODUCTION_AGE = int(os.getenv("MIN_REPRODUCTION_AGE"))
+
 
 class Organism:
     def __init__(self, position: tuple, color: np.ndarray, time_to_live: int = TIME_TO_LIVE, parents: tuple = None,
-                 sex: int = np.random.choice([0, 1]), fitness: float = 0):
+                 sex: int = None, fitness: float = 0, genome=None):
         """
         :param position: Position (y, x)
         :param color: Color in GUI
@@ -29,15 +35,20 @@ class Organism:
         self.position = {'x': position[1], 'y': position[0]}
         self.color = color
 
-        self.genome = Genome()
+        if genome is None:
+            self.genome = Genome()
+        else:
+            self.genome = genome
         self.nn = NeuralNetwork(self.genome.gene_list)
 
-        self.age = 0    # number of time steps
-        self.sex = sex
+        self.age = 0  # number of time steps
+        if sex is None:
+            self.sex = np.random.choice(np.array([0, 1]))
         self.time_to_live = time_to_live
         self.fitness = fitness
         self.alive = True
-        self.fertility = np.random.uniform(low=0, high=0.5)
+        self.fertility = np.random.uniform(low=MIN_FERTILITY_PROBABILITY, high=MAX_FERTILITY_PROBABILITY)
+        self.min_reproduction_age = MIN_REPRODUCTION_AGE
 
         # historical info
         self.parents = parents  # Father first, mother second
@@ -116,9 +127,26 @@ class Organism:
         elif action_neuron.neuron_id == 17:  # Kill forward neighbour
             kill(world, world_state, self)
 
+        # all organisms should be able to reproduce
+        self.reproduce(world, world_state)
+
         self.age += 1
         if self.age == self.time_to_live:  # death
             self.die(world, world_state)
 
     def die(self, world, world_state):
         die(world, world_state, self)
+
+    def reproduce(self, world, world_state):
+        partner, pos, color, parents, child_genome = reproduce(world, world_state, self)
+        if partner:
+            child = Organism(pos, color, parents=parents, genome=child_genome)
+            world_state[pos] = child
+
+            self.children.append(child)
+            self.gave_birth = True
+            partner.children.append(child)
+            partner.gave_birth = True
+
+            self.sexual_partners.append(partner)
+            partner.sexual_partners.append(self)

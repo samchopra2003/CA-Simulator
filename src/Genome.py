@@ -25,11 +25,14 @@ TOTAL_NEURONS = np.sum([INPUT_NEURONS, HIDDEN_NEURONS, OUTPUT_NEURONS])
 
 
 class Genome:
-    def __init__(self):
-        self.gene_list = []
+    def __init__(self, gene_list=None):
+        if gene_list is None:
+            gene_list = []
+        self.gene_list = gene_list
         self.num_mutations = 0
 
-        self._build_genome()
+        if not self.gene_list:
+            self._build_genome()
 
         self._mutate()
 

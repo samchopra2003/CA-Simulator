@@ -21,7 +21,6 @@ HIDDEN_NEURONS = int(os.getenv("HIDDEN_NEURONS"))
 MUTATION_RATE_STRUCT = float(os.getenv("MUTATION_RATE_STRUCT"))
 MUTATION_RATE_NON_STRUCT = float(os.getenv("MUTATION_RATE_NON_STRUCT"))
 FOOD_QUANTITY = int(os.getenv("FOOD_QUANTITY"))
-REPRODUCTION_RATE = float(os.getenv("REPRODUCTION_RATE"))
 TIME_TO_LIVE = int(os.getenv("TIME_TO_LIVE"))
 VIDEO_RENDER_FREQ = int(os.getenv("VIDEO_RENDER_FREQ"))
 MONITOR_FREQ = int(os.getenv("MONITOR_FREQ"))
@@ -49,6 +48,7 @@ if __name__ == '__main__':
     for gen in range(NUM_GENERATIONS):
         for gen_step in range(STEPS_PER_GEN):
             step(world, world_state, organism_list)
+            monitor.all_time_population = max(monitor.all_time_population, monitor.total_population)
 
             if (gen_step + 1) % VIDEO_RENDER_FREQ == 0:
                 render_video(world, default_size=False, dsize=(512, 512), frame_rate=10)
