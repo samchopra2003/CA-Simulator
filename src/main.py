@@ -43,6 +43,8 @@ if __name__ == '__main__':
             organism_list.append(organism)
             world_state[pos] = organism
 
+    monitor.all_time_population = len(organism_list)
+
     # Start simulation
     for gen in range(NUM_GENERATIONS):
         for gen_step in range(STEPS_PER_GEN):

@@ -7,7 +7,7 @@ import uuid
 from Genome import Genome
 from NeuralNetwork import NeuralNetwork
 from neurons.Neuron import Neuron
-from utils.move import move_right, move_left, move_up, move_down, die
+from utils.move import move_right, move_left, move_up, move_down, die, kill
 
 load_dotenv()
 
@@ -45,6 +45,7 @@ class Organism:
             self.fitness = np.average([parents[0].fitness, parents[1].fitness])
         self.children = []
         self.sexual_partners = []
+        self.kills = 0
 
         # 0: Right, 1: Left, 2: Up, 3: Down
         self.last_move = None
@@ -109,9 +110,11 @@ class Organism:
                 move_up(world, world_state, self)
 
         elif action_neuron.neuron_id == 17:  # Kill forward neighbour
-            # TODO: Implement kill function
-            pass
+            kill(world, world_state, self)
 
         self.age += 1
-        if self.age == self.time_to_live:   # death
-            die(world, world_state, self)
+        if self.age == self.time_to_live:  # death
+            self.die(world, world_state)
+
+    def die(self, world, world_state):
+        die(world, world_state, self)

@@ -23,7 +23,7 @@ class PopulationDensityNeuron(Neuron):
 
     def forward(self, organism, world_state: np.ndarray, input_prob: float = None):
         neighbourhood_size = POPULATION_DENSITY_NEIGHBOURHOOD_SIZE
-        row, col = organism.position['x'], organism.position['y']
+        row, col = organism.position['y'], organism.position['x']
 
         center_x = (neighbourhood_size - 1) // 2
         center_y = (neighbourhood_size - 1) // 2
