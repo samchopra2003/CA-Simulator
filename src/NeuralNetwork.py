@@ -20,9 +20,7 @@ class NeuralNetwork:
     def __init__(self, gene_list: list[Gene]):
         total_neurons = np.sum([INPUT_NEURONS, HIDDEN_NEURONS, OUTPUT_NEURONS, 1])
         self.adjacency_matrix = np.zeros((total_neurons, total_neurons))
-        # TODO: Explained in Genome.py
-        # # source neuron, sink neuron
-        # self.synapses = []
+        # source neuron, sink neuron
         self.enabled_neurons = []
         # reserved for hidden and output neurons
         self.neuron_inputs = {}
@@ -45,11 +43,6 @@ class NeuralNetwork:
             sink_neuron = create_neuron(gene.sink_neuron_id)
             synaptic_weight = gene.weight
 
-            # # sink neuron has to be either hidden or output in current config
-            # if gene.sink_neuron_id not in self.neuron_inputs:
-            #     self.neuron_inputs[gene.sink_neuron_id] = []
-
-            # self.synapses.append([source_neuron, sink_neuron])
             if source_neuron.neuron_class == 0:  # Input neuron
                 self.input_source_synapses.append([source_neuron, sink_neuron, synaptic_weight])
             else:  # Hidden neuron
