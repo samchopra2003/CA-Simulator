@@ -32,21 +32,25 @@ class Organism:
         self.genome = Genome()
         self.nn = NeuralNetwork(self.genome.gene_list)
 
-        # number of time steps
-        self.age = 0
+        self.age = 0    # number of time steps
         self.sex = sex
         self.time_to_live = time_to_live
         self.fitness = fitness
         self.alive = True
+        self.fertility = np.random.uniform(low=0, high=0.5)
 
         # historical info
-        self.parents = parents
+        self.parents = parents  # Father first, mother second
         if self.parents is not None:
             self.fitness = np.average([parents[0].fitness, parents[1].fitness])
         self.children = []
         self.sexual_partners = []
         self.kills = 0
 
+        # transient flags
+        # lets Monitor know that a new Organism is created
+        # and current Organisms should not reproduce again in current time step
+        self.gave_birth = False
         # 0: Right, 1: Left, 2: Up, 3: Down
         self.last_move = None
 
