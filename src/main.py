@@ -4,9 +4,8 @@ import numpy as np
 from dotenv import load_dotenv
 
 from Organism import Organism
-from utils.Monitor import Monitor
 from utils.gui import render_video
-from utils.step import step
+from utils.step import step, Monitor
 
 load_dotenv()
 
