@@ -17,6 +17,9 @@ TIME_TO_LIVE = int(os.getenv("TIME_TO_LIVE"))
 MAX_FERTILITY_PROBABILITY = float(os.getenv("MAX_FERTILITY_PROBABILITY"))
 MIN_FERTILITY_PROBABILITY = float(os.getenv("MIN_FERTILITY_PROBABILITY"))
 
+FITNESS_FERTILITY_COEFF = int(os.getenv("FITNESS_FERTILITY_COEFF"))
+FITNESS_AGE_COEFF = float(os.getenv("FITNESS_AGE_COEFF"))
+
 MIN_REPRODUCTION_AGE = int(os.getenv("MIN_REPRODUCTION_AGE"))
 
 
@@ -130,6 +133,8 @@ class Organism:
         # all organisms should be able to reproduce
         self.reproduce(world, world_state)
 
+        self.update_fitness()
+
         self.age += 1
         if self.age == self.time_to_live:  # death
             self.die(world, world_state)
@@ -150,3 +155,21 @@ class Organism:
 
             self.sexual_partners.append(partner)
             partner.sexual_partners.append(self)
+
+    def update_fitness(self):
+        """
+        Updates fitness function
+        Factors of fitness function:
+        1. Length of individual life span
+        2. Avg of parents fitness (weighted according to fitness)
+        3. Number of offsprings
+        4. Fertility
+        5. Number of organisms killed
+        """
+        parent_fitness_avg = 0
+        if self.parents:
+            parent_fitness_avg = np.average(self.parents[0].fitness, self.parents[1].fitness)
+
+        # weighted avg
+        self.fitness = FITNESS_AGE_COEFF * self.age + parent_fitness_avg + len(
+            self.children) + FITNESS_FERTILITY_COEFF * self.fertility + self.kills
