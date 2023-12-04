@@ -168,7 +168,7 @@ class Organism:
         """
         parent_fitness_avg = 0
         if self.parents:
-            parent_fitness_avg = np.average(self.parents[0].fitness, self.parents[1].fitness)
+            parent_fitness_avg = np.mean([self.parents[0].fitness, self.parents[1].fitness])
 
         # weighted avg
         self.fitness = FITNESS_AGE_COEFF * self.age + parent_fitness_avg + len(
