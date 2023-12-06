@@ -16,7 +16,7 @@ This project is written in Python. The numpy library has been used for most of o
 network and math operations. In addition, the opencv library has been used to render the
 world frame, so that we can visualize the organisms.
 
-![img.png](src/assets/ui_ex.png)
+![img.png](assets/ui_ex.png)
 
 ### Running Simulation
 

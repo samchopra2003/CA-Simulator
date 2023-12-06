@@ -1,3 +1,20 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+WORLD_SIZE_ROWS = int(os.getenv("WORLD_SIZE_ROWS"))
+WORLD_SIZE_COLS = int(os.getenv("WORLD_SIZE_COLS"))
+STARTING_POPULATION = int(os.getenv("STARTING_POPULATION"))
+NUM_GENERATIONS = int(os.getenv("NUM_GENERATIONS"))
+STEPS_PER_GEN = int(os.getenv("STEPS_PER_GEN"))
+GENOME_START_LENGTH = int(os.getenv("GENOME_START_LENGTH"))
+HIDDEN_NEURONS = int(os.getenv("HIDDEN_NEURONS"))
+MUTATION_RATE_STRUCT = float(os.getenv("MUTATION_RATE_STRUCT"))
+MUTATION_RATE_NON_STRUCT = float(os.getenv("MUTATION_RATE_NON_STRUCT"))
+TIME_TO_LIVE = int(os.getenv("TIME_TO_LIVE"))
+
+
 class Monitor:
     """
     Singleton Monitor Class
@@ -21,6 +38,34 @@ class Monitor:
         self.num_males = 0
         self.num_females = 0
 
+        directory_path = 'logs'
+        base_file_name = 'fitness'
+        file_extension = '.txt'
+
+        existing_files = [f for f in os.listdir(directory_path) if f.endswith(file_extension)]
+        if existing_files:
+            existing_files.sort()
+            last_file_number = int(existing_files[-1].replace(base_file_name, '').replace(file_extension, ''))
+            new_file_name = f"{base_file_name}{last_file_number + 1}{file_extension}"
+        else:
+            new_file_name = f"{base_file_name}0{file_extension}"
+
+        self.fitness_file = os.path.join(directory_path, new_file_name)
+        with open(self.fitness_file, 'w') as file:
+            file.write(f'Params:\n'
+                       '----------------\n'
+                       f'World size: ({WORLD_SIZE_ROWS}, {WORLD_SIZE_COLS})\n'
+                       f'Starting Population: {STARTING_POPULATION}\n'
+                       f'Number of Generations: {NUM_GENERATIONS}\n'
+                       f'Steps per Generation: {STEPS_PER_GEN}\n'
+                       f'Genome start length: {GENOME_START_LENGTH}\n'
+                       f'Number of hidden neurons: {HIDDEN_NEURONS}\n'
+                       f'Mutation Rate Structural: {MUTATION_RATE_STRUCT}, Non-Structural: {MUTATION_RATE_NON_STRUCT}\n'
+                       f'Time to live: {TIME_TO_LIVE}\n'
+                       '----------------\n')
+
+        self.log_fitness()
+
     def print_monitor(self):
         print(f"All-time population: {self.all_time_population}")
         print(f"Current population: {self.total_population}")
@@ -31,3 +76,6 @@ class Monitor:
         print(f"Total number of predators: {self.num_predators}")
         print(f"Organisms killed: {self.num_killed}")
 
+    def log_fitness(self):
+        with open(self.fitness_file, 'a') as file:
+            file.write(str(self.avg_fitness) + '\n')
