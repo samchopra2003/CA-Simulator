@@ -38,11 +38,12 @@ class Monitor:
         self.num_males = 0
         self.num_females = 0
 
-        directory_path = 'logs'
+        # fitness logger
+        fitness_directory_path = 'logs/fitness'
         base_file_name = 'fitness'
         file_extension = '.txt'
 
-        existing_files = [f for f in os.listdir(directory_path) if f.endswith(file_extension)]
+        existing_files = [f for f in os.listdir(fitness_directory_path) if f.endswith(file_extension)]
         if existing_files:
             existing_files.sort()
             last_file_number = int(existing_files[-1].replace(base_file_name, '').replace(file_extension, ''))
@@ -50,7 +51,7 @@ class Monitor:
         else:
             new_file_name = f"{base_file_name}0{file_extension}"
 
-        self.fitness_file = os.path.join(directory_path, new_file_name)
+        self.fitness_file = os.path.join(fitness_directory_path, new_file_name)
         with open(self.fitness_file, 'w') as file:
             file.write(f'Params:\n'
                        '----------------\n'
@@ -66,6 +67,35 @@ class Monitor:
 
         self.log_fitness()
 
+        # population logger
+        population_directory_path = 'logs/population'
+        base_file_name = 'population'
+        file_extension = '.txt'
+
+        existing_files = [f for f in os.listdir(population_directory_path) if f.endswith(file_extension)]
+        if existing_files:
+            existing_files.sort()
+            last_file_number = int(existing_files[-1].replace(base_file_name, '').replace(file_extension, ''))
+            new_file_name = f"{base_file_name}{last_file_number + 1}{file_extension}"
+        else:
+            new_file_name = f"{base_file_name}0{file_extension}"
+
+        self.population_file = os.path.join(population_directory_path, new_file_name)
+        with open(self.population_file, 'w') as file:
+            file.write(f'Params:\n'
+                       '----------------\n'
+                       f'World size: ({WORLD_SIZE_ROWS}, {WORLD_SIZE_COLS})\n'
+                       f'Starting Population: {STARTING_POPULATION}\n'
+                       f'Number of Generations: {NUM_GENERATIONS}\n'
+                       f'Steps per Generation: {STEPS_PER_GEN}\n'
+                       f'Genome start length: {GENOME_START_LENGTH}\n'
+                       f'Number of hidden neurons: {HIDDEN_NEURONS}\n'
+                       f'Mutation Rate Structural: {MUTATION_RATE_STRUCT}, Non-Structural: {MUTATION_RATE_NON_STRUCT}\n'
+                       f'Time to live: {TIME_TO_LIVE}\n'
+                       '----------------\n')
+
+        self.log_population()
+
     def print_monitor(self):
         print(f"All-time population: {self.all_time_population}")
         print(f"Current population: {self.total_population}")
@@ -79,3 +109,7 @@ class Monitor:
     def log_fitness(self):
         with open(self.fitness_file, 'a') as file:
             file.write(str(self.avg_fitness) + '\n')
+
+    def log_population(self):
+        with open(self.population_file, 'a') as file:
+            file.write(str(self.total_population) + '\n')

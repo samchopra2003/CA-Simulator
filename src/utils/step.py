@@ -59,4 +59,6 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism]):
     monitor.num_males = num_males
     monitor.num_females = num_females
 
+    # log
     monitor.log_fitness()
+    monitor.log_population()
