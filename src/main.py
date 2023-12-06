@@ -51,7 +51,7 @@ if __name__ == '__main__':
             monitor.all_time_population = max(monitor.all_time_population, monitor.total_population)
 
             if (gen_step + 1) % VIDEO_RENDER_FREQ == 0:
-                render_video(world, default_size=False, dsize=(512, 512), frame_rate=10)
+                render_video(world, default_size=False, dsize=(512, 512), frame_rate=1000, record_movie=True)
 
             if (gen_step + 1) % MONITOR_FREQ == 0:
                 print("----------------------")

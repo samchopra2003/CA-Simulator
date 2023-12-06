@@ -23,7 +23,7 @@ world frame, so that we can visualize the organisms.
 Install dependencies and run simulation \
 ```
 pip install -r requirements.txt
-python3 main.py
+python3 src/main.py
 ```
 
 
