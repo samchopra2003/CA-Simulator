@@ -13,7 +13,6 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism]):
     """
     fitnesses = []
     new_children = []
-    new_parents_idxs = []
     num_mutations = 0
     num_predators = 0
     num_killed = 0
@@ -45,6 +44,7 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism]):
     # add new children
     organisms.extend(new_children)
 
+    new_parents_idxs = [idx for idx, org in enumerate(organisms) if org.gave_birth]
     for par_idx in new_parents_idxs:
         organisms[par_idx].gave_birth = False
 
