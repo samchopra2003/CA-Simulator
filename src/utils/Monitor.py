@@ -39,6 +39,9 @@ class Monitor:
         self.num_males = 0
         self.num_females = 0
 
+        self.generation = 0
+        self.gen_step = 0
+
         # fitness logger
         fitness_directory_path = 'logs/fitness'
         base_file_name = 'fitness'
@@ -98,6 +101,9 @@ class Monitor:
         self.log_population()
 
     def print_monitor(self):
+        print("----------------------")
+        print(f"Generation {self.generation} Step {self.gen_step + 1}")
+        print("----------------------")
         print(f"All-time population: {self.all_time_population}")
         print(f"Current population: {self.total_population}")
         print(f"Number of males: {self.num_males}, Number of females: {self.num_females}")
@@ -106,6 +112,7 @@ class Monitor:
         print(f"Total number of mutations: {self.total_mutations}")
         print(f"Total number of predators: {self.num_predators}")
         print(f"Organisms killed: {self.num_killed}")
+        print("-----------------------")
 
     def log_fitness(self):
         with open(self.fitness_file, 'a') as file:

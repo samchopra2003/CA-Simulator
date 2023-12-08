@@ -51,11 +51,10 @@ if __name__ == '__main__':
             monitor.all_time_population = max(monitor.all_time_population, monitor.total_population)
 
             if (gen_step + 1) % VIDEO_RENDER_FREQ == 0:
-                render_video(world, default_size=False, dsize=(512, 512), frame_rate=1000, record_movie=True)
+                render_video(world.copy(), monitor,
+                             default_size=False, dsize=(512, 512), frame_rate=100, record_movie=True)
 
+            monitor.generation = gen
+            monitor.gen_step = gen_step
             if (gen_step + 1) % MONITOR_FREQ == 0:
-                print("----------------------")
-                print(f"Generation {gen} Step {gen_step+1}")
-                print("----------------------")
                 monitor.print_monitor()
-                print("-----------------------")
