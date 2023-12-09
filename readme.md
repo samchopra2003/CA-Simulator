@@ -39,10 +39,12 @@ used in the past for a multitude of applications, ranging from machine learning,
 agriculture, finance, research to art. There are four main steps to an evolutionary 
 algorithm:
 
-1. Generate the initial population of organisms randomly.
-2. Select the fittest organisms for reproduction.
-3. Breed organisms via crossover and mutation of genes to give birth to offspring.
+1. *Generate the **initial population** of organisms randomly.
+2. **Select the fittest organisms** for reproduction.
+3. Breed organisms via **crossover** and **mutation** of genes to give birth to offspring.
 4. Replace least-fit individuals with new individuals.
+
+![img.png](assets/evolutionary_flow_chart.png)
 
 While step 4 is an extremely valuable step for an optimization problem, for the purposes
 of our simulation we will ignore this, as organisms with less fitness will naturally
@@ -124,4 +126,7 @@ selection. Accessed 9 Dec. 2023.
 YouTube, YouTube, 13 Dec. 2020, www.youtube.com/watch?v=N3tRFayqVtk&amp;list=LL&amp;index=8&amp;t=2222s. 
 
 [6] Shorten, Connor. “Neuroevolution of Augmenting Topologies (NEAT).” 
-YouTube, YouTube, 27 Aug. 2019, www.youtube.com/watch?v=b3D8jPmcw-g&amp;list=LL&amp;index=7&amp;pp=gAQBiAQB. 
+YouTube, YouTube, 27 Aug. 2019, www.youtube.com/watch?v=b3D8jPmcw-g&amp;list=LL&amp;index=7&amp;pp=gAQBiAQB.
+
+[7] Soni, Devin. “Introduction to Evolutionary Algorithms.” Medium, Towards Data Science, 
+23 June 2021, towardsdatascience.com/introduction-to-evolutionary-algorithms-a8594b484ac. 
