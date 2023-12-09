@@ -100,7 +100,7 @@ low probability, mutation may take place in the child's genome.
 This completes the baseline implementation of an evolutionary algorithm. Beyond this lies 
 the method we use to create the neural network along with the associated input, 
 output and hidden neurons. Furthermore, I will discuss the specifics of reproduction, mutation,
-as well as speciation. Then we will analyze the results of the simulations and the
+fitness function as well as speciation. Then we will analyze the results of the simulations and the
 keys takeaways from the project. I will also list items that are worth exploring in the 
 future.
 
