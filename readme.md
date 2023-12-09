@@ -122,3 +122,6 @@ selection. Accessed 9 Dec. 2023.
 
 [5] Miller, David Randall. “I Programmed Some Creatures. They Evolved.” 
 YouTube, YouTube, 13 Dec. 2020, www.youtube.com/watch?v=N3tRFayqVtk&amp;list=LL&amp;index=8&amp;t=2222s. 
+
+[6] Shorten, Connor. “Neuroevolution of Augmenting Topologies (NEAT).” 
+YouTube, YouTube, 27 Aug. 2019, www.youtube.com/watch?v=b3D8jPmcw-g&amp;list=LL&amp;index=7&amp;pp=gAQBiAQB. 
