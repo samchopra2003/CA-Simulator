@@ -73,6 +73,23 @@ def render_video(img, monitor, default_size=True, dsize=None, frame_rate=10, rec
         cv2.putText(new_image, f"Organisms killed: {monitor.num_killed}",
                     position, font, font_scale, font_color, thickness)
 
+        position = (5, 150)
+        cv2.putText(new_image, f"Number of species: {monitor.num_species}",
+                    position, font, font_scale, font_color, thickness)
+        y = 150
+        for idx, name in enumerate(monitor.species_names):
+            position = (5, y + (idx + 1) * 15)
+            cv2.putText(new_image, f"{idx+1}. {name}",
+                        position, font, font_scale, font_color, thickness)
+            position = (5, y + (idx + 2) * 15)
+            cv2.putText(new_image, f"Pop: {monitor.species_populations[idx]}, "
+                                   f"Fitness: {monitor.species_fitnesses[idx]:.3f}",
+                        position, font, font_scale, font_color, thickness)
+            y += 15
+
+            if idx == 11:   # max number of species that will fit on screen
+                break
+
         img = new_image
 
         cv2.imshow('Image', img)

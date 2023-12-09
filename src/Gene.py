@@ -27,3 +27,17 @@ class Gene:
         :return: None
         """
         self.weight = np.random.uniform(WEIGHT_INIT_LOWER, WEIGHT_INIT_UPPER)
+
+    def __eq__(self, other):
+        """
+        Only source neu id and sink neu id need to be equal
+        """
+        if isinstance(other, Gene):
+            return (
+                    self.source_neuron_id == other.source_neuron_id and
+                    self.sink_neuron_id == other.sink_neuron_id
+            )
+        return False
+
+    def __hash__(self):
+        return hash((self.source_neuron_id, self.sink_neuron_id))

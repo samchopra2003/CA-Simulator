@@ -42,6 +42,11 @@ class Monitor:
         self.generation = 0
         self.gen_step = 0
 
+        self.num_species = 0
+        self.species_names = []
+        self.species_populations = []
+        self.species_fitnesses = []
+
         # fitness logger
         fitness_directory_path = 'logs/fitness'
         base_file_name = 'fitness'
@@ -112,6 +117,10 @@ class Monitor:
         print(f"Total number of mutations: {self.total_mutations}")
         print(f"Total number of predators: {self.num_predators}")
         print(f"Organisms killed: {self.num_killed}")
+        print(f"Number of species: {self.num_species}")
+        print("Species List: ")
+        for idx, name in enumerate(self.species_names):
+            print(f"{idx+1}. {name}: Pop: {self.species_populations[idx]}, Fitness: {self.species_fitnesses[idx]}")
         print("-----------------------")
 
     def log_fitness(self):

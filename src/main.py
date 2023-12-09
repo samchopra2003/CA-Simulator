@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from Organism import Organism
 from utils.gui import render_video
-from utils.step import step, Monitor
+from utils.step import step, Monitor, segregate_species
 
 load_dotenv()
 
@@ -44,10 +44,17 @@ if __name__ == '__main__':
 
     monitor.all_time_population = len(organism_list)
 
+    # compute distinct species
+    species = segregate_species(organism_list)
+    monitor.num_species = len(species)
+    monitor.species_names = [name for name, _ in species.items()]
+    monitor.species_populations = [len(orgs) for _, orgs in species.items()]
+    monitor.species_fitnesses = [0 for _ in species]
+
     # Start simulation
     for gen in range(NUM_GENERATIONS):
         for gen_step in range(STEPS_PER_GEN):
-            step(world, world_state, organism_list)
+            step(world, world_state, organism_list, species)
             monitor.all_time_population = max(monitor.all_time_population, monitor.total_population)
 
             if (gen_step + 1) % VIDEO_RENDER_FREQ == 0:

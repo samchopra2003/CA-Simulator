@@ -22,16 +22,14 @@ def segregate_species(organisms: list, species=None):
     """
     # TODO: Integrate into species fitness
     if species is None:
-        species = []
+        species = {}
 
-    species_names = []
     for org in organisms:
         species_found = False
-        spec_idx = 0
-        for spec_idx, spec in enumerate(species):
-            rand_genome_idx = np.random.randint(0, len(spec))
+        for species_name, species_orgs in species.items():
+            rand_genome_idx = np.random.randint(0, len(species_orgs))
 
-            rep_genome = spec[rand_genome_idx].genome.gene_list  # representative genome
+            rep_genome = species_orgs[rand_genome_idx].genome.gene_list  # representative genome]
 
             num_excess_genes = abs(len(rep_genome) - len(org.genome.gene_list))
 
@@ -57,16 +55,14 @@ def segregate_species(organisms: list, species=None):
 
             if delta < COMPATIBILITY_THRESH:
                 species_found = True
+                org.species = species_name
+                species[species_name].append(org)
                 break
 
-        if species_found:
-            org.species = species[spec_idx][0].species
-            species[spec_idx].append(org)
-
-        else:  # new species
-            species.append([org])
+        if not species_found:  # new species
             name = generate_species_name()
             org.species = name
-            species_names.append(name)
+            species[name] = [org]
 
-    return species, species_names
+    # return species, species_names
+    return species

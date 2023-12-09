@@ -45,6 +45,7 @@ class Organism:
         self.nn = NeuralNetwork(self.genome.gene_list)
 
         self.age = 0  # number of time steps
+        self.species = None
         if sex is None:
             self.sex = np.random.choice(np.array([0, 1]))
         self.time_to_live = time_to_live
