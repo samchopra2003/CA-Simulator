@@ -39,7 +39,7 @@ used in the past for a multitude of applications, ranging from machine learning,
 agriculture, finance, research to art. There are four main steps to an evolutionary 
 algorithm:
 
-1. *Generate the **initial population** of organisms randomly.
+1. Generate the **initial population** of organisms randomly.
 2. **Select the fittest organisms** for reproduction.
 3. Breed organisms via **crossover** and **mutation** of genes to give birth to offspring.
 4. Replace least-fit individuals with new individuals.
