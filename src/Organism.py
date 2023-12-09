@@ -17,6 +17,9 @@ TIME_TO_LIVE = int(os.getenv("TIME_TO_LIVE"))
 MAX_FERTILITY_PROBABILITY = float(os.getenv("MAX_FERTILITY_PROBABILITY"))
 MIN_FERTILITY_PROBABILITY = float(os.getenv("MIN_FERTILITY_PROBABILITY"))
 
+MAX_CROSS_FERTILITY_PROBABILITY = float(os.getenv("MAX_CROSS_FERTILITY_PROBABILITY"))
+MIN_CROSS_FERTILITY_PROBABILITY = float(os.getenv("MIN_CROSS_FERTILITY_PROBABILITY"))
+
 FITNESS_FERTILITY_COEFF = int(os.getenv("FITNESS_FERTILITY_COEFF"))
 FITNESS_AGE_COEFF = float(os.getenv("FITNESS_AGE_COEFF"))
 
@@ -52,6 +55,8 @@ class Organism:
         self.fitness = fitness
         self.alive = True
         self.fertility = np.random.uniform(low=MIN_FERTILITY_PROBABILITY, high=MAX_FERTILITY_PROBABILITY)
+        self.cross_species_fertility = np.random.uniform(low=MIN_CROSS_FERTILITY_PROBABILITY,
+                                                         high=MAX_CROSS_FERTILITY_PROBABILITY)
         self.min_reproduction_age = MIN_REPRODUCTION_AGE
 
         # historical info

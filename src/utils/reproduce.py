@@ -25,36 +25,31 @@ def reproduce(world, world_state, organism):
             and organism.age >= organism.min_reproduction_age:
         # search immediate neighbourhood for sexual partner (male and female partners)
         partner = None
-        try:
-            if world_state[organism.position['y'], organism.position['x'] + 1] != 0:  # right
-                if world_state[organism.position['y'], organism.position['x'] + 1].sex != organism.sex:
-                    partner = world_state[organism.position['y'], organism.position['x'] + 1]
-        except IndexError:
-            pass
+        directions = [1, 2, 3, 4]   # right, left, up, down
+        directions = np.random.permutation(directions)
+        fertilities = None    # tuple: organism fertility, partner fertility
 
-        if partner is None:
-            try:
-                if world_state[organism.position['y'], organism.position['x'] - 1] != 0:  # left
-                    if world_state[organism.position['y'], organism.position['x'] - 1].sex != organism.sex:
-                        partner = world_state[organism.position['y'], organism.position['x'] - 1]
-            except IndexError:
-                pass
+        for cur_dir in directions:
+            if cur_dir == 1:
+                partner = search_right(world_state, organism)
+            elif cur_dir == 2:
+                partner = search_left(world_state, organism)
+            elif cur_dir == 3:
+                partner = search_up(world_state, organism)
+            else:
+                partner = search_down(world_state, organism)
 
-        if partner is None:
-            try:
-                if world_state[organism.position['y'] - 1, organism.position['x']] != 0:  # up
-                    if world_state[organism.position['y'] - 1, organism.position['x']].sex != organism.sex:
-                        partner = world_state[organism.position['y'] - 1, organism.position['x']]
-            except IndexError:
-                pass
+            if partner:
+                if organism.species == partner.species:
+                    fertilities = (organism.fertility, partner.fertility)
+                else:   # cross-species
+                    fertilities = (organism.cross_species_fertility, partner.cross_species_fertility)
+                break
 
-        if partner is None:
-            try:
-                if world_state[organism.position['y'] + 1, organism.position['x']] != 0:  # down
-                    if world_state[organism.position['y'] + 1, organism.position['x']].sex != organism.sex:
-                        partner = world_state[organism.position['y'] + 1, organism.position['x']]
-            except IndexError:
-                pass
+        # reproduction criteria
+        if partner is None or fertilities[0] < np.random.random() or fertilities[1] < np.random.random() \
+                or partner.gave_birth or partner.age < partner.min_reproduction_age:
+            return None, None, None, None, None
 
         # check if nearby vacant spot
         neighbourhood_size = CHILD_SPAWN_NEIGHBOURHOOD
@@ -71,46 +66,80 @@ def reproduce(world, world_state, organism):
         neighbourhood = world_state[row_start: row_end, col_start: col_end]
         vacant_pos = np.where(neighbourhood == 0)
 
-        if partner and not partner.gave_birth:
-            if partner.fertility > np.random.random() and len(vacant_pos[0]) > 0 and \
-                    partner.age >= partner.min_reproduction_age:
-                child_gene_ids = [{"source": gene.source_neuron_id, "sink": gene.sink_neuron_id}
-                                  for gene in organism.genome.gene_list]
-                child_genes = organism.genome.gene_list
-                child_gene_owner = [0] * len(organism.genome.gene_list)  # 0 for organism, 1 for partner
-                for gene_idx, gene in enumerate(partner.genome.gene_list):
-                    gene_neu = {"source": gene.source_neuron_id, "sink": gene.sink_neuron_id}
-                    if gene_neu not in child_gene_ids:
-                        child_gene_ids.append(gene_neu)
-                        child_genes.append(gene)
-                        child_gene_owner.append(1)
-                    else:
-                        # TODO: Fitness of both organisms should be proportional to gene contribution
-                        child_gene_idx = child_gene_ids.index(gene_neu)
-                        if partner.fitness > organism.fitness:
+        if len(vacant_pos[0]) > 0:
+            child_gene_ids = [{"source": gene.source_neuron_id, "sink": gene.sink_neuron_id}
+                              for gene in organism.genome.gene_list]
+            child_genes = organism.genome.gene_list
+            child_gene_owner = [0] * len(organism.genome.gene_list)  # 0 for organism, 1 for partner
+            for gene_idx, gene in enumerate(partner.genome.gene_list):
+                gene_neu = {"source": gene.source_neuron_id, "sink": gene.sink_neuron_id}
+                if gene_neu not in child_gene_ids:
+                    child_gene_ids.append(gene_neu)
+                    child_genes.append(gene)
+                    child_gene_owner.append(1)
+                else:
+                    # TODO: Fitness of both organisms should be proportional to gene contribution
+                    child_gene_idx = child_gene_ids.index(gene_neu)
+                    if partner.fitness > organism.fitness:
+                        child_genes[child_gene_idx] = gene
+                        child_gene_owner[child_gene_idx] = 1
+                    elif partner.fitness == organism.fitness:
+                        gene_pick_prob = np.random.choice(np.array([0, 1]))
+                        if gene_pick_prob == 0:
                             child_genes[child_gene_idx] = gene
                             child_gene_owner[child_gene_idx] = 1
-                        elif partner.fitness == organism.fitness:
-                            gene_pick_prob = np.random.choice(np.array([0, 1]))
-                            if gene_pick_prob == 0:
-                                child_genes[child_gene_idx] = gene
-                                child_gene_owner[child_gene_idx] = 1
 
-                try:
-                    vacant_pos_y = vacant_pos[0][0]
-                    vacant_pos_x = vacant_pos[1][0]
+            try:
+                vacant_pos_y = vacant_pos[0][0]
+                vacant_pos_x = vacant_pos[1][0]
 
-                    color = np.random.randint(0, 256, size=3, dtype=np.uint8)
-                    pos = (vacant_pos_y, vacant_pos_x)
-                    world[pos] = color
-                    if organism.sex == 0:
-                        parents = (organism, partner)
-                    else:
-                        parents = (partner, organism)
-                    # TODO: Implement fitness
-                    child_genome = Genome(gene_list=child_genes)
-                    return partner, pos, color, parents, child_genome
-                except IndexError:
-                    pass
+                color = np.random.randint(0, 256, size=3, dtype=np.uint8)
+                pos = (vacant_pos_y, vacant_pos_x)
+                world[pos] = color
+                if organism.sex == 0:
+                    parents = (organism, partner)
+                else:
+                    parents = (partner, organism)
+                # TODO: Implement fitness
+                child_genome = Genome(gene_list=child_genes)
+                return partner, pos, color, parents, child_genome
+            except IndexError:
+                pass
 
     return None, None, None, None, None
+
+
+def search_right(world_state, organism):
+    try:
+        if world_state[organism.position['y'], organism.position['x'] + 1] != 0:  # right
+            if world_state[organism.position['y'], organism.position['x'] + 1].sex != organism.sex:
+                return world_state[organism.position['y'], organism.position['x'] + 1]
+    except IndexError:
+        return None
+
+
+def search_left(world_state, organism):
+    try:
+        if world_state[organism.position['y'], organism.position['x'] - 1] != 0:  # left
+            if world_state[organism.position['y'], organism.position['x'] - 1].sex != organism.sex:
+                return world_state[organism.position['y'], organism.position['x'] - 1]
+    except IndexError:
+        return None
+
+
+def search_up(world_state, organism):
+    try:
+        if world_state[organism.position['y'] - 1, organism.position['x']] != 0:  # up
+            if world_state[organism.position['y'] - 1, organism.position['x']].sex != organism.sex:
+                return world_state[organism.position['y'] - 1, organism.position['x']]
+    except IndexError:
+        return None
+
+
+def search_down(world_state, organism):
+    try:
+        if world_state[organism.position['y'] + 1, organism.position['x']] != 0:  # down
+            if world_state[organism.position['y'] + 1, organism.position['x']].sex != organism.sex:
+                return world_state[organism.position['y'] + 1, organism.position['x']]
+    except IndexError:
+        return None
