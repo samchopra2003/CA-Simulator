@@ -49,10 +49,10 @@ of our simulation we will ignore this, as organisms with less fitness will natur
 die out in favor of the fitter organisms (natural selection). 
 
 Step 1 involves creating the initial population of organisms. First we must randomly
-generate the genome for the Organism, which is a set of genes for the organism (defined
+generate the **genome** for the Organism, which is a set of genes for the organism (defined
 gene length). One gene can be thought of as a synaptic connection (with weight) between a source and 
 sink neuron. We have a defined set of input and output neurons, as well as an arbitrary number of 
-hidden neurons (hyperparameter). For the time being, we do not allow any self 
+hidden neurons (set in .env file). For the time being, we do not allow any self 
 and feedback connections. Once we have defined our genome, we can then build the brain
 wiring. Using the genes (i.e. prospective synaptic connections) we connect the 
 neurons in an adjacency matrix representation. After building the initial brain wiring, 
@@ -61,6 +61,48 @@ to an output or input neuron. In this instance, we must cull all synaptic connec
 to this neuron, which will help save system resources. Once this is complete, the 
 Organism's Neural Network is formed.
 
+Step 2 is also a step specific to an optimization algorithm like NEAT. In our case, while there is
+no such fitness check, the Organism's fertility (same species or cross-species) must be greater than
+a random number between 0 and 1. The Organism's same species and cross-species fertilities 
+are randomized at creation, and it is the probability that the Organism will engage in
+sexual reproduction with a partner of the opposite sex. Naturally, the same species fertility
+will generally be higher than the cross species fertility. Furthermore, sexual partners must be
+within a certain vicinity of each other, and must be of a minimum age, in order to reproduce
+successfully.
+
+Step 3 is where the real magic happens. Once Organisms pass the criteria for reproduction, 
+a process known as **crossover**, or recombination of genes begins to form the genome of the 
+offspring. In a NEAT-like fashion, we compare alike genes, and select the gene from the 
+fitter parent. By picking genes from the fitter parent, we are in essence optimizing the 
+child's genome. It is worth an experiment in the future to have a random probability 
+helping us select the gene which is transmitted to the child. If there are disjoint genes, 
+we simply include all of them in the child's genome. 
+
+Once recombination is over, perhaps the
+most important process of the evolutionary algorithm occurs: **mutation**. Mutation is the equivalent 
+of backpropagation in artificial neural networks (ANN). This is incredibly powerful because 
+it introduces genetic diversity, which helps organisms adapt and survive. A popular 
+example of mutation is the peppered moth, also dubbed as 'Darwin's moth'. In the 19th century,
+the black form of the moth became more common than its pale counterpart. This was during the 
+Industrial Revolution, and the domestic coal fires had darkened the tree trunks and walls. 
+The pale form of the peppered moth was easily observable to predators, and the black 
+form was camouflaged, thus being able to survive and produce offspring. By 1895, 98% of peppered moths
+in Manchester were black.
+
+![img.png](assets/black_peppered_moth.png)
+
+In the context of optimization, mutation in evolutionary algorithms also 
+helps balance exploration vs exploitation, since by injecting randomness into the system, we 
+can explore more of the search space. This also helps with avoiding premature convergence and
+falling in the local minima trap. Hence, after the recombination of genes, with a relatively
+low probability, mutation may take place in the child's genome.
+
+This completes the baseline implementation of an evolutionary algorithm. Beyond this lies 
+the method we use to create the neural network along with the associated input, 
+output and hidden neurons. Furthermore, I will discuss the specifics of reproduction, mutation,
+as well as speciation. Then we will analyze the results of the simulations and the
+keys takeaways from the project. I will also list items that are worth exploring in the 
+future.
 
 ## References
 
@@ -73,3 +115,7 @@ doi: 10.1162/106365602320169811.
 
 [3] Ashlock, D. (2006), Evolutionary Computation for Modeling and Optimization, 
 Springer, New York, doi:10.1007/0-387-31909-3 ISBN 0-387-22196-4.
+
+[4] “Peppered Moth and Natural Selection.” Butterfly Conservation, 
+butterfly-conservation.org/moths/why-moths-matter/amazing-moths/peppered-moth-and-natural-
+selection. Accessed 9 Dec. 2023. 
