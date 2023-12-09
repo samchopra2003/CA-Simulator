@@ -19,7 +19,8 @@ movie_recorder = None
 MOVIE_RECORDER_FRAME_RATE = 100
 
 
-def render_video(img, monitor, default_size=True, dsize=None, frame_rate=10, record_movie=False):
+def render_video(img, monitor, default_size=True, dsize=None, frame_rate=10, record_movie=False,
+                 species_specific_colors=False):
     if default_size:
         # TODO: Add monitor support for default size
         cv2.imshow('Image', img)
@@ -81,6 +82,14 @@ def render_video(img, monitor, default_size=True, dsize=None, frame_rate=10, rec
             position = (5, y + (idx + 1) * 15)
             cv2.putText(new_image, f"{idx+1}. {name}",
                         position, font, font_scale, font_color, thickness)
+
+            if species_specific_colors:
+                top_left = (120, y + (idx + 1) * 15 - 10)
+                bottom_right = (130, y + (idx + 1) * 15)
+                color_values = monitor.species_colors[name]
+                color = tuple(map(int, color_values))
+                cv2.rectangle(new_image, top_left, bottom_right, color, thickness=cv2.FILLED)
+
             position = (5, y + (idx + 2) * 15)
             cv2.putText(new_image, f"Pop: {monitor.species_populations[idx]}, "
                                    f"Fitness: {monitor.species_fitnesses[idx]:.3f}",

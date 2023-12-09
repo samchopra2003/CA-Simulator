@@ -51,15 +51,19 @@ if __name__ == '__main__':
     monitor.species_populations = [len(orgs) for _, orgs in species.items()]
     monitor.species_fitnesses = [0 for _ in species]
 
+    monitor.species_colors = {name: np.random.randint(0, 256, size=3, dtype=np.uint8)
+                              for name, _ in species.items()}
+
     # Start simulation
     for gen in range(NUM_GENERATIONS):
         for gen_step in range(STEPS_PER_GEN):
-            step(world, world_state, organism_list, species)
+            step(world, world_state, organism_list, species, species_specific_colors=True)
             monitor.all_time_population = max(monitor.all_time_population, monitor.total_population)
 
             if (gen_step + 1) % VIDEO_RENDER_FREQ == 0:
                 render_video(world.copy(), monitor,
-                             default_size=False, dsize=(512, 512), frame_rate=100, record_movie=True)
+                             default_size=False, dsize=(512, 512), frame_rate=100, record_movie=True,
+                             species_specific_colors=True)
 
             monitor.generation = gen
             monitor.gen_step = gen_step

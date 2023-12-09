@@ -46,6 +46,7 @@ class Monitor:
         self.species_names = []
         self.species_populations = []
         self.species_fitnesses = []
+        self.species_colors = []
 
         # fitness logger
         fitness_directory_path = 'logs/fitness'
