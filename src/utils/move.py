@@ -110,6 +110,7 @@ def kill(world: np.ndarray, world_state: np.ndarray, organism):
         org = world_state[forward_pos_y, forward_pos_x]
         if org != 0:
             # TODO: KILL PROBABILITY SHOULD INCREASE WITH HIGHER GAP IN FITNESS
-            if np.random.random() < KILL_PROBABILITY and organism.fitness > org.fitness:
+            if np.random.random() < KILL_PROBABILITY and organism.fitness > org.fitness and \
+                    organism.species != org.species:
                 org.die(world, world_state)
                 organism.kills += 1
