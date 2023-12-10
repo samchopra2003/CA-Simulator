@@ -245,12 +245,12 @@ does occur, it can introduce profound changes in the Organism and by extension, 
 ## Fitness Function
 
 In the context of an evolutionary/genetic algorithm, the **fitness function** is the 
-objective function and is what designers of a system strive to maximize. It is used to evaluate
+objective function [10] and is what designers of a system strive to maximize. It is used to evaluate
 the strength of correlation between a current solution and the ideal solution; higher fitness values
 indicate a *better* solution according to the design of the system. 
 
 For the purposes of our simulation, the fitness function can be thought of as a surrogate 
-measure of an organism's ability to survive. Fitter organisms will tend to live longer 
+measure of an organism's ability to survive, i.e., *survivability*. Fitter organisms will tend to live longer 
 and their species and offspring will survive through the generations, while those that have a
 lower fitness will die out which may result in the extinction of lower fitness species.
 
@@ -261,7 +261,7 @@ allows us to benchmark and analyze the state of the simulation. Fitness gives us
 deal of information about the place of different organisms and species in the world as well 
 as separate ecosystems. We can understand more about predator-prey relations, the food chain
 as well as biodiversity. Across generations, we can observe the variations in
-species fitness which can inform us about how different factors affect a species survivability 
+species fitness which can inform us about how different factors affect a species' survivability 
 and the extent to which the search space of different genomes has been explored.
 
 
@@ -296,3 +296,7 @@ intuitivetutorial.com/2023/03/26/hyperparameters-in-machine-learning/.
 
 [9] Nikola. “Neat Algorithm from Scratch (It Was Hard).” YouTube, YouTube, 4 Oct. 
 2023, www.youtube.com/watch?v=lAjcH-hCusg&amp;list=LL&amp;index=6&amp;t=664s. 
+
+[10] “Evaluation Phase.” Evaluation Phase - Generative Design Primer, 
+www.generativedesign.org/02-deeper-dive/02-04_genetic-algorithms/02-04-03_evaluation-phase. 
+Accessed 10 Dec. 2023. 
