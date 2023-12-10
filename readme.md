@@ -37,7 +37,7 @@ The core of this project is built upon the foundation of evolutionary algorithms
 the phenomena of evolution to solve optimization problems. They have been 
 used in the past for a multitude of applications, ranging from machine learning, 
 agriculture, finance, research to art. One of the most popular evolutionary algorithms is
-known as Neuroevolution of Augmenting Topologies (NEAT) [2], and this project has taken great
+known as **Neuroevolution of Augmenting Topologies (NEAT)** [2], and this project has taken great
 inspiration from it. In contrast to artificial neural networks (ANN), which generally have a fixed network
 topology during both training and inference (inference might leave certain layers out 
 like dropout), NEAT's network topology changes and evolves. It may start
