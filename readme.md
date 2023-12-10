@@ -242,6 +242,29 @@ does occur, it can introduce profound changes in the Organism and by extension, 
 
 ![img.png](assets/NEAT_mutation.png)
 
+## Fitness Function
+
+In the context of an evolutionary/genetic algorithm, the **fitness function** is the 
+objective function and is what designers of a system strive to maximize. It is used to evaluate
+the strength of correlation between a current solution and the ideal solution; higher fitness values
+indicate a *better* solution according to the design of the system. 
+
+For the purposes of our simulation, the fitness function can be thought of as a surrogate 
+measure of an organism's ability to survive. Fitter organisms will tend to live longer 
+and their species and offspring will survive through the generations, while those that have a
+lower fitness will die out which may result in the extinction of lower fitness species.
+
+The fitness function is computed for every organism, species and the population as a whole. In addition to the fitness 
+function playing a pivotal role when organisms interact with their environment, for instance, 
+predators can only kill their prey if their fitness is higher than the latter, fitness also 
+allows us to benchmark and analyze the state of the simulation. Fitness gives us a great
+deal of information about the place of different organisms and species in the world as well 
+as separate ecosystems. We can understand more about predator-prey relations, the food chain
+as well as biodiversity. Across generations, we can observe the variations in
+species fitness which can inform us about how different factors affect a species survivability 
+and the extent to which the search space of different genomes has been explored.
+
+
 
 ## References
 
