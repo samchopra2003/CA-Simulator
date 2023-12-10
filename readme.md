@@ -204,8 +204,43 @@ and a random action is sampled according to this distribution. Instead of pickin
 using the argmax function (like in supervised learning), this allows for a more stochastic 
 policy for Organisms. 
 
-## Reproduction
+## Reproduction / Crossover
 
+Reproduction, particularly **sexual reproduction** (between a male and a female), at first seemed to be 
+daunting task to implement in our simulator. However, thanks to NEAT, this is also not too 
+complicated. We compare alike genes, and select the gene from the fitter parent. If there are 
+disjoint genes, we simply include all of them in the child's genome. NEAT also has the idea of 
+innovation numbers, which are essentially historical marking of genes and help easily match 
+them from both parents. 
+
+![img.png](assets/NEAT_crossover.png)
+
+In our simulation, both intraspecies and cross-species reproduction can occur. Naturally,
+intraspecies reproduction occurs with a higher probability relative to cross-species, because of
+genetic compatibility. This is a constraint I have added to keep things realistic. 
+
+## Mutation
+
+Now let us discuss the crux of an evolutionary algorithm: **mutation**. Mutation is an operation
+applied to individual genes and not genomes itself. There are two main branches of
+mutation in our simulation:
+
+1. **Structural Mutation**: Changes to the network topology itself.
+   - *Addition of synapse*: A new synapse/gene is added to the genome.
+   - *Removal of synapse*: A random synapse/gene is deleted from the genome.
+   - *Addition of hidden neuron*: A hidden neuron is added to an existing random synapse/gene.
+   - *Removal of hidden neuron*: A hidden neuron is deleted from an existing random synapse/gene.
+
+2. **Non-Structural Mutation**: No changes to the network topology. Only the weights of a gene
+are modified.
+   - *Random weight delta*: A DELTA parameter is added or subtracted from the current
+   gene weight.
+   - *New random weight*: A completely new random weight is assigned to the gene.
+
+The probability of mutation (structural or non-structural) is relatively low, however, when it
+does occur, it can introduce profound changes in the Organism and by extension, its species.
+
+![img.png](assets/NEAT_mutation.png)
 
 
 ## References
@@ -235,3 +270,6 @@ YouTube, YouTube, 27 Aug. 2019, www.youtube.com/watch?v=b3D8jPmcw-g&amp;list=LL&
 
 [8] H, Roshna S. “Hyperparameters in Machine Learning.” Intuitive Tutorials, 27 Mar. 2023, 
 intuitivetutorial.com/2023/03/26/hyperparameters-in-machine-learning/. 
+
+[9] Nikola. “Neat Algorithm from Scratch (It Was Hard).” YouTube, YouTube, 4 Oct. 
+2023, www.youtube.com/watch?v=lAjcH-hCusg&amp;list=LL&amp;index=6&amp;t=664s. 
