@@ -118,6 +118,17 @@ fitness function as well as speciation. Then we will analyze the results of the 
 keys takeaways from the project. I will also list items that are worth exploring in the 
 future.
 
+## Neural Network
+
+Once the genome has been defined (first organisms have a random set of genes), it is time to build
+the brain wiring. A **gene** can be simply thought of as a connection between a source and a sink 
+neuron, and a collection of genes is known as the **genome**. Following is the data structure
+for a gene:
+
+![gene_data_struct.png](assets/gene_data_struct.png)
+
+
+
 ## References
 
 [1] Lillicrap, T.P., Santoro, A., Marris, L. et al. Backpropagation and the brain. Nat Rev 
