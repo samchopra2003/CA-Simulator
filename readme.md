@@ -36,7 +36,19 @@ the main file is run.
 The core of this project is built upon the foundation of evolutionary algorithms, which use
 the phenomena of evolution to solve optimization problems. They have been 
 used in the past for a multitude of applications, ranging from machine learning, 
-agriculture, finance, research to art. There are four main steps to an evolutionary 
+agriculture, finance, research to art. One of the most popular evolutionary algorithms is
+known as Neuroevolution of Augmenting Topologies (NEAT) [2], and this project has taken great
+inspiration from it. In contrast to artificial neural networks (ANN), which generally have a fixed network
+topology during both training and inference (inference might leave certain layers out 
+like dropout), NEAT's network topology changes and evolves. It may start
+out as a simple few neuron network with minimal connections, but at the end of the training stage,
+it may be many layers deep with a significant number of synaptic connections. This is the beauty of such
+evolutionary algorithms, instead of fixing our network topology, we optimize both the network
+architecture and its parameters, the weights and biases. NEAT, in particular, 
+has been shown to be incredibly effective for all sort of complex control tasks, 
+like Pole Balancing.
+
+There are four main steps to an evolutionary 
 algorithm:
 
 1. Generate the **initial population** of organisms randomly.
@@ -82,7 +94,7 @@ we simply include all of them in the child's genome.
 
 Once recombination is over, perhaps the
 most important process of the evolutionary algorithm occurs: **mutation**. Mutation is the equivalent 
-of backpropagation in artificial neural networks (ANN). This is incredibly powerful because 
+of backpropagation in ANNs. This is incredibly powerful because 
 it introduces genetic diversity, which helps organisms adapt and survive. A popular 
 example of mutation is the peppered moth, also dubbed as 'Darwin's moth'. In the 19th century,
 the black form of the moth became more common than its pale counterpart. This was during the 
@@ -95,8 +107,8 @@ in Manchester were black.
 
 In the context of optimization, mutation in evolutionary algorithms also 
 helps balance exploration vs exploitation, since by injecting randomness into the system, we 
-can explore more of the search space. This also helps with avoiding premature convergence and
-falling in the local minima trap. Hence, after the recombination of genes, with a relatively
+can explore more of the search space of solutions. This also helps with avoiding premature convergence and
+falling into the local minima trap. Hence, after the recombination of genes, with a relatively
 low probability, mutation may take place in the child's genome.
 
 This completes the baseline implementation of an evolutionary algorithm. Beyond this lies 
