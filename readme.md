@@ -101,7 +101,7 @@ the black form of the moth became more common than its pale counterpart. This wa
 Industrial Revolution, and the domestic coal fires had darkened the tree trunks and walls. 
 The pale form of the peppered moth was easily observable to predators, and the black 
 form was camouflaged, thus being able to survive and produce offspring. By 1895, 98% of peppered moths
-in Manchester were black.
+in Manchester were black [4].
 
 ![img.png](assets/black_peppered_moth.png)
 
