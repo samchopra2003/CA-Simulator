@@ -162,6 +162,51 @@ At the output I am using a softmax function, which gives us normalized multi-cla
 
 ### Neurons
 
+The following neurons have been used in the neural network. First we evaluate the neurons at the
+input layer, followed by the hidden and finally output layers.
+
+1. **Input neurons**:
+   - **Age Neuron** (#1): Sensitive to the organism's age relative to its natural time to live.
+   - **Location X Neuron** (#2): Sensitive to the organism's x coordinate in the world.
+   - **Location Y Neuron** (#3): Sensitive to the organism's y coordinate in the world.
+   - **Genetic Similarity Neuron** (#4): Sensitive to genetic similarity in the organism's neighbourhood.
+   - **Border Distance X Neuron** (#5): Sensitive to the border distance in the x-direction.
+   - **Border Distance Y Neuron** (#6): Sensitive to the border distance in the y-direction.
+   - **Population Density Neuron** (#7): Sensitive to the population density in the organism's neighbourhood.
+   - **Last Move X Neuron** (#8): Sensitive to the last move in the x-direction.
+   - **Last Move Y Neuron** (#9): Sensitive to the last move in the y-direction.
+   - **Predator Detection Neuron** (#10): Sensitive to predators in the neighbourhood.
+   - **Random Neuron** (#11): Generates random normalized output.
+
+2. **Hidden neurons**: Number of identical hidden neurons defined in .env file.
+
+3. **Output neurons**: 
+   - **Move X Neuron** (#12): Move in the left/right direction.
+   - **Move Y Neuron** (#13): Move in the up/down direction.
+   - **Move Random Neuron** (#14): Move in a random direction.
+   - **Move in Forward Direction** (#15): Move in the same direction as last move (forward).
+   - **Move in Reverse Direction** (#16): Move in the opposite direction as last move (reverse).
+   - **Kill forward neighbour** (#17): Kill neighbour in forward position.
+
+The kill neuron is a special neuron as it is the only non-move output layer neuron that an Organism 
+has (reproduction not considered a neuron). A gene containing this kill neuron is said to be
+the predator gene, and an improves the fitness of the Organism. There are a couple of criteria 
+for the kill neuron to be activated and kill a member of another species; the predator's 
+fitness should be greater than the prey's and the kill probability should surpass a 
+stochastically generated threshold. The number of kills positively influences an Organism's
+fitness since by killing members of another species, it is protecting itself and securing more
+territory for itself and its species members.
+
+The outputs of all neurons are in the range -1 and 1 before activation function are applied. -1
+corresponds to an inhibitory connection, while 1 corresponds to an excitatory connection. At the output
+layer, normalized multi-class probabilities are used to construct a Categorical distribution,
+and a random action is sampled according to this distribution. Instead of picking the probability
+using the argmax function (like in supervised learning), this allows for a more stochastic 
+policy for Organisms. 
+
+## Reproduction
+
+
 
 ## References
 
