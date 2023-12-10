@@ -120,13 +120,47 @@ future.
 
 ## Neural Network
 
-Once the genome has been defined (first organisms have a random set of genes), it is time to build
-the brain wiring. A **gene** can be simply thought of as a connection between a source and a sink 
-neuron, and a collection of genes is known as the **genome**. Following is the data structure
+A **gene** can be simply thought of as a connection between a source and a sink 
+neuron (along with a weight), and a collection of genes is known as the **genome**. Following is the data structure
 for a gene:
 
 ![gene_data_struct.png](assets/gene_data_struct.png)
 
+These genes are prospective synaptic connections. Once the genome has been defined
+(first organisms have a random set of genes), it is time to build the brain wiring. We can use 
+each set of genes to fill out the adjacency matrix of neurons. This adjacency matrix
+will represent our **Neural Network**, with a 0 denoting no connection and 1 denoting a connection. 
+We can then use this adjacency matrix in parallel with a list of Genes, containing the source and
+sink neurons as well as their synaptic weight. After this, there is one final step to complete the
+Neural Network; we must cull useless connections. A useless connection is defined as such:
+a hidden neuron which does not connect to either an input neuron or an output neuron (currently
+no same layer connections allowed). This connection is useless as it does not contribute to
+an output or action potential, and if we include it in the network, it is a waste of resources.
+With this, our neural network is built and now let us discuss the underlying topology (which can change
+due to mutation and recombination).
+
+The topology of the network is that of a 3 layer network, with an input layer, hidden layer, and an
+output layer. While this is the fundamental architecture, thanks to evolution, we can gain more
+neurons and build all sorts of synaptic connections. However, as of now, the maximum number
+of layers we can achieve is three (it is also possible to have only an input and output layer). 
+In the future, we can make it so that the network can organize into an arbitrary number of 
+layers, achieving more sophisticated behavior.
+
+![img.png](assets/3_lyr_net.png)
+
+The activation function that we are using between the input layer and hidden layer, as well as 
+between the hidden layer and the output layer is the tanh 
+or hyperbolic tangent function. 
+
+![img.png](assets/tanh.png)
+
+![img.png](assets/tanh_plot.png)
+
+At the output I am using a softmax function, which gives us normalized multi-class probabilities.
+
+![img.png](assets/softmax.png)
+
+### Neurons
 
 
 ## References
@@ -153,3 +187,6 @@ YouTube, YouTube, 27 Aug. 2019, www.youtube.com/watch?v=b3D8jPmcw-g&amp;list=LL&
 
 [7] Soni, Devin. “Introduction to Evolutionary Algorithms.” Medium, Towards Data Science, 
 23 June 2021, towardsdatascience.com/introduction-to-evolutionary-algorithms-a8594b484ac. 
+
+[8] H, Roshna S. “Hyperparameters in Machine Learning.” Intuitive Tutorials, 27 Mar. 2023, 
+intuitivetutorial.com/2023/03/26/hyperparameters-in-machine-learning/. 
