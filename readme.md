@@ -290,9 +290,27 @@ weight differences of matching genes W, including disabled genes [2].
 ![SpeciationEqn.png](assets/SpeciationEqn.png)
 
 Coefficients c<sub>1</sub>, c<sub>2</sub>, and c<sub>3</sub> allow us to adjust the weight of each of the three factors. N 
-is the number of genes in th larger genome, which normalizes the genome size. If δ exceeds the 
-compatibility threshold δ<sub>t</sub>, then speciation has occurred and a new species along 
-is appended to the running list of species.
+is the number of genes in th larger genome, which normalizes the genome size. 
+Each existing species is represented by a random genome inside the species from the previous
+generation. We compare the Organism's genome against representative genomes from each species
+and compute the compatibility distance. We then place the new genome in the first species where 
+δ is less than the compatibility threshold δ<sub>t</sub>. If δ exceeds 
+δ<sub>t</sub>, then speciation has occurred and a new species has emerged.
+
+In our simulation, the significance of speciation becomes evident, as it establishes a crucial 
+dynamic wherein members of the same species are precluded from killing one another, 
+while also emphasizing that intraspecies fertility surpasses cross-species fertility.
+
+Speciation is the primary driver of **biodiversity** and **genetic diversity**, which enhances ecosystem 
+resilience and adaptability. A prime example of speciation is the Galápagos finch (also known as Darwin's finches), which resides on 
+several islands in the Galápagos archipelago [11]. Due to isolation, over millions of years, 
+the finches have developed a unique beak adapted to the food they eat. Some finches have large, 
+blunt beaks for cracking the hard shells of nuts and seeds, while others have long, thin beaks
+that can probe into cactus flowers. Since finches are isolated from one another, they have 
+developed into new species; this phenomenon is known as **allopatric speciation**.
+
+![img.png](assets/DarwinFinches.png)
+
 
 
 ## References
