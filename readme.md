@@ -274,6 +274,25 @@ The number of children and the fertility are a measure of the organism's ability
 lineage. The number of kills is a measure of its dominance in its environment, as it 
 can ward off other species and predators.
 
+## Speciation
+
+Speciation is the process with which a new species is created. Speciation occurs when a group 
+within a species separates from other members of its species and develops its own unique 
+characteristics [11]. Within our simulation, we can detect speciation by borrowing another
+idea from the NEAT algorithm. The more disjoint two genomes are, the less
+evolutionary history they share, and thus the less compatible they are. Therefore, we
+can measure the compatibility distance δ of different genomes as a simple linear 
+combination of the number of excess E and disjoint D genes, as well as the average
+weight differences of matching genes W, including disabled genes [2]. 
+
+![SpeciationEqn.png](assets/SpeciationEqn.png)
+
+Coefficients c1, c2, and c3 allow us to adjust the weight of each of the three factors. N 
+is the number of genes in th larger genome, which normalizes the genome size. If δ exceeds the 
+compatibility threshold δ<sub>t</sub>, then speciation has occurred and a new species along 
+is appended to the running list of species.
+
+
 ## References
 
 [1] Lillicrap, T.P., Santoro, A., Marris, L. et al. Backpropagation and the brain. Nat Rev 
@@ -308,3 +327,6 @@ intuitivetutorial.com/2023/03/26/hyperparameters-in-machine-learning/.
 [10] “Evaluation Phase.” Evaluation Phase - Generative Design Primer, 
 www.generativedesign.org/02-deeper-dive/02-04_genetic-algorithms/02-04-03_evaluation-phase. 
 Accessed 10 Dec. 2023. 
+
+[11] “Speciation.” Education, education.nationalgeographic.org/resource/speciation/. 
+Accessed 11 Dec. 2023. 
