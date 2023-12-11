@@ -264,7 +264,15 @@ as well as biodiversity. Across generations, we can observe the variations in
 species fitness which can inform us about how different factors affect a species' survivability 
 and the extent to which the search space of different genomes has been explored.
 
+![img.png](assets/FitnessFunctionEqn.png)
 
+The fitness function we have used for the simulation is a weighted average of the organism's 
+age, the average of its parents fitness, number of children, its intraspecies fertility, 
+and the number of kills it has. Since parents donate the genes to the child, we
+include their fitness (not fixed until both parents die), which acts like a historical marking. 
+The number of children and the fertility are a measure of the organism's ability to continue its 
+lineage. The number of kills is a measure of its dominance in its environment, as it 
+can ward off other species and predators.
 
 ## References
 
