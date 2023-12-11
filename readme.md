@@ -266,6 +266,8 @@ and the extent to which the search space of different genomes has been explored.
 
 ![img.png](assets/FitnessFunctionEqn.png)
 
+Coefficients c<sub>1</sub>, c<sub>2</sub>, c<sub>3</sub> and c<sub>4</sub> allow us to 
+adjust the weights of all 4 factors.
 The fitness function we have used for the simulation is a weighted average of the organism's 
 age, the average of its parents fitness, number of children, its intraspecies fertility, 
 and the number of kills it has. Since parents donate the genes to the child, we
@@ -287,7 +289,7 @@ weight differences of matching genes W, including disabled genes [2].
 
 ![SpeciationEqn.png](assets/SpeciationEqn.png)
 
-Coefficients c1, c2, and c3 allow us to adjust the weight of each of the three factors. N 
+Coefficients c<sub>1</sub>, c<sub>2</sub>, and c<sub>3</sub> allow us to adjust the weight of each of the three factors. N 
 is the number of genes in th larger genome, which normalizes the genome size. If δ exceeds the 
 compatibility threshold δ<sub>t</sub>, then speciation has occurred and a new species along 
 is appended to the running list of species.
