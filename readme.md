@@ -350,3 +350,7 @@ Accessed 10 Dec. 2023.
 
 [11] “Speciation.” Education, education.nationalgeographic.org/resource/speciation/. 
 Accessed 11 Dec. 2023. 
+
+[12] Carylsue. “One of ‘Darwin’s Finches’ Struggles to Survive.” 
+National Geographic Education Blog, 22 June 2018, 
+blog.education.nationalgeographic.org/2015/05/12/one-of-darwins-finches-struggles-to-survive/. 
