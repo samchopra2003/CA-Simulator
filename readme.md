@@ -268,7 +268,7 @@ and the extent to which the search space of different genomes has been explored.
 
 Coefficients c<sub>1</sub>, c<sub>2</sub>, c<sub>3</sub> and c<sub>4</sub> allow us to 
 adjust the weights of all 4 factors.
-The fitness function we have used for the simulation is a weighted average of the organism's 
+The fitness function we have used for the simulation is a linear combination of the organism's 
 age, the average of its parents fitness, number of children, its intraspecies fertility, 
 and the number of kills it has. Since parents donate the genes to the child, we
 include their fitness (not fixed until both parents die), which acts like a historical marking. 

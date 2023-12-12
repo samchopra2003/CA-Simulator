@@ -22,6 +22,9 @@ MIN_CROSS_FERTILITY_PROBABILITY = float(os.getenv("MIN_CROSS_FERTILITY_PROBABILI
 
 FITNESS_FERTILITY_COEFF = int(os.getenv("FITNESS_FERTILITY_COEFF"))
 FITNESS_AGE_COEFF = float(os.getenv("FITNESS_AGE_COEFF"))
+PARENT_FITNESS_COEFF = float(os.getenv("PARENT_FITNESS_COEFF"))
+CHILDREN_COEFF = float(os.getenv("CHILDREN_COEFF"))
+KILLS_COEFF = float(os.getenv("CHILDREN_COEFF"))
 
 MIN_REPRODUCTION_AGE = int(os.getenv("MIN_REPRODUCTION_AGE"))
 
@@ -177,5 +180,5 @@ class Organism:
             parent_fitness_avg = np.mean([self.parents[0].fitness, self.parents[1].fitness])
 
         # weighted avg
-        self.fitness = FITNESS_AGE_COEFF * self.age + parent_fitness_avg + len(
-            self.children) + FITNESS_FERTILITY_COEFF * self.fertility + self.kills
+        self.fitness = FITNESS_AGE_COEFF * self.age + parent_fitness_avg * PARENT_FITNESS_COEFF + len(
+            self.children) * CHILDREN_COEFF + FITNESS_FERTILITY_COEFF * self.fertility + self.kills * KILLS_COEFF
