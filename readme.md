@@ -311,6 +311,38 @@ developed into new species; this phenomenon is known as **allopatric speciation*
 
 ![img.png](assets/DarwinFinches.png)
 
+## Design Testing and Verification
+
+To test new functionality in the simulator, I performed some unit tests, including verification of
+edge cases. After testing in isolation, I performed integration and 
+system tests, by testing the new functionality in conjunction with other modules as well as 
+with the entire system. At the start, there were issues particularly with circular imports, 
+and I had to be more careful with the level of abstraction in the code. Some type hints
+were removed, and code was written to be more modular with a hierarchical
+design. Certain design patterns that I followed were the Abstract Factory, Adapter, 
+Proxy and Mediator patterns.
+
+The user interface (UI) and system monitor underwent considerable testing. The UI is simply a numpy matrix, but I 
+have leveraged opencv to insert text and a species legend to see real-time stats from the simulation. The stats are all
+provided by the system monitor, whose class provides a singleton object to the system, so that the data 
+is consistent throughout read/writes in all modules.
+
+The UI has changed significantly from the start of the project. Following illustrates the evolution
+of the UI.
+
+![img.png](assets/UI_evo_0.png)
+
+![img.png](assets/UI_evo_1.png)
+
+![img.png](assets/ui_ex.png)
+
+We are presenting a number of stats in the UI and console to capture crucial simulation metrics.
+What is particularly interesting is the world population, average fitness, number of species
+and the population and ranking of each species (species ranked by fitness in UI). In order to analyze
+the simulation, I am capturing the simulation as a movie in the form of an .mp4 file, while 
+concurrently logging the average fitness and population. These logged metrics will be used to 
+generate visual plots for better understanding and analysis.
+
 
 
 ## References
