@@ -330,9 +330,15 @@ is consistent throughout read/writes in all modules.
 The UI has changed significantly from the start of the project. Following illustrates the evolution
 of the UI.
 
+Iteration 1:
+
 ![img.png](assets/UI_evo_0.png)
 
+Iteration 2:
+
 ![img.png](assets/UI_evo_1.png)
+
+Latest iteration:
 
 ![img.png](assets/ui_ex.png)
 
