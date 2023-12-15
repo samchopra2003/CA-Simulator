@@ -50,7 +50,8 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism], 
         org = organisms[idx]
         organisms.pop(idx)
         if org.species in species:
-            species[org.species].remove(org)
+            if org in species.get(org.species):
+                species[org.species].remove(org)
             if not species[org.species]:  # remove species from dict (species extinction)
                 del species[org.species]
 
