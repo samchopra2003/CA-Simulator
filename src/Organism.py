@@ -152,7 +152,7 @@ class Organism:
         die(world, world_state, self)
 
     def reproduce(self, world, world_state):
-        partner, pos, color, parents, child_genome = reproduce(world, world_state, self)
+        partner, pos, color, parents, child_genome = reproduce(world, world_state.copy(), self)
         if partner:
             child = Organism(pos, color, parents=parents, genome=child_genome)
             world_state[pos] = child
@@ -162,8 +162,9 @@ class Organism:
             partner.children.append(child)
             partner.gave_birth = True
 
-            self.sexual_partners.append(partner)
-            partner.sexual_partners.append(self)
+            if partner not in self.sexual_partners:
+                self.sexual_partners.append(partner)
+                partner.sexual_partners.append(self)
 
     def update_fitness(self):
         """

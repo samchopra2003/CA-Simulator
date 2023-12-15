@@ -24,6 +24,9 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism], 
     num_males = 0
     num_females = 0
     for org_idx, org in enumerate(organisms):
+        if not org.alive:
+            continue
+
         org.step(world, world_state)
 
         if org.sex == 0:
@@ -48,12 +51,13 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism], 
         organisms.pop(idx)
         if org.species in species:
             species[org.species].remove(org)
-            if not species[org.species]:    # remove species from dict (species extinction)
+            if not species[org.species]:  # remove species from dict (species extinction)
                 del species[org.species]
 
     # add new children
-    organisms.extend(new_children)
-    species = segregate_species(new_children, species)
+    if new_children:
+        organisms.extend(new_children)
+        segregate_species(new_children, species)
 
     new_parents_idxs = [idx for idx, org in enumerate(organisms) if org.gave_birth]
     for par_idx in new_parents_idxs:
@@ -101,7 +105,8 @@ def step(world: np.ndarray, world_state: np.ndarray, organisms: list[Organism], 
             for spec_name in species_colors_names - species_names:
                 del monitor.species_colors[spec_name]
 
-        update_organisms_color(species, monitor.species_colors)
+        if new_children:
+            update_organisms_color(species, monitor.species_colors)
 
     # log
     monitor.log_fitness()

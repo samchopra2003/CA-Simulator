@@ -65,6 +65,8 @@ def reproduce(world, world_state, organism):
 
         neighbourhood = world_state[row_start: row_end, col_start: col_end]
         vacant_pos = np.where(neighbourhood == 0)
+        # convert to world_state coordinates
+        vacant_pos = (vacant_pos[0] + row_start, vacant_pos[1] + col_start)
 
         if len(vacant_pos[0]) > 0:
             child_gene_ids = [{"source": gene.source_neuron_id, "sink": gene.sink_neuron_id}

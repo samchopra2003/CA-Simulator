@@ -63,5 +63,3 @@ def segregate_species(organisms: list, species=None):
             name = generate_species_name()
             org.species = name
             species[name] = [org]
-
-    return species

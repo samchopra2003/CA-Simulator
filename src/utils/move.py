@@ -25,9 +25,9 @@ def move_right(world: np.ndarray, world_state: np.ndarray, organism):
         world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
         world_state[organism.position['y'], organism.position['x']] = 0
         organism.position['x'] += 1
+        organism.last_move = 0
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
-        organism.last_move = 0
 
 
 def move_left(world: np.ndarray, world_state: np.ndarray, organism):
@@ -41,9 +41,9 @@ def move_left(world: np.ndarray, world_state: np.ndarray, organism):
         world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
         world_state[organism.position['y'], organism.position['x']] = 0
         organism.position['x'] -= 1
+        organism.last_move = 1
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
-        organism.last_move = 1
 
 
 def move_up(world: np.ndarray, world_state: np.ndarray, organism):
@@ -58,9 +58,9 @@ def move_up(world: np.ndarray, world_state: np.ndarray, organism):
         world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
         world_state[organism.position['y'], organism.position['x']] = 0
         organism.position['y'] -= 1
+        organism.last_move = 2
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
-        organism.last_move = 2
 
 
 def move_down(world: np.ndarray, world_state: np.ndarray, organism):
@@ -75,15 +75,15 @@ def move_down(world: np.ndarray, world_state: np.ndarray, organism):
         world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
         world_state[organism.position['y'], organism.position['x']] = 0
         organism.position['y'] += 1
+        organism.last_move = 3
         world[organism.position['y'], organism.position['x']] = organism.color
         world_state[organism.position['y'], organism.position['x']] = organism
-        organism.last_move = 3
 
 
 def die(world: np.ndarray, world_state: np.ndarray, organism):
+    organism.alive = False
     world[organism.position['y'], organism.position['x']] = WORLD_BACKGROUND_COLOR
     world_state[organism.position['y'], organism.position['x']] = 0
-    organism.alive = False
 
 
 def kill(world: np.ndarray, world_state: np.ndarray, organism):

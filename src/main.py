@@ -45,7 +45,8 @@ if __name__ == '__main__':
     monitor.all_time_population = len(organism_list)
 
     # compute distinct species
-    species = segregate_species(organism_list)
+    species = {}
+    segregate_species(organism_list, species)
     monitor.num_species = len(species)
     monitor.species_names = [name for name, _ in species.items()]
     monitor.species_populations = [len(orgs) for _, orgs in species.items()]
