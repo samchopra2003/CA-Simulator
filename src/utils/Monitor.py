@@ -15,6 +15,11 @@ MUTATION_RATE_STRUCT = float(os.getenv("MUTATION_RATE_STRUCT"))
 MUTATION_RATE_NON_STRUCT = float(os.getenv("MUTATION_RATE_NON_STRUCT"))
 TIME_TO_LIVE = int(os.getenv("TIME_TO_LIVE"))
 
+MAX_FERTILITY_PROBABILITY = float(os.getenv("MAX_FERTILITY_PROBABILITY"))
+MIN_FERTILITY_PROBABILITY = float(os.getenv("MIN_FERTILITY_PROBABILITY"))
+MAX_CROSS_FERTILITY_PROBABILITY = float(os.getenv("MAX_CROSS_FERTILITY_PROBABILITY"))
+MIN_CROSS_FERTILITY_PROBABILITY = float(os.getenv("MIN_CROSS_FERTILITY_PROBABILITY"))
+
 
 class Monitor:
     """
@@ -73,6 +78,10 @@ class Monitor:
                        f'Number of hidden neurons: {HIDDEN_NEURONS}\n'
                        f'Mutation Rate Structural: {MUTATION_RATE_STRUCT}, Non-Structural: {MUTATION_RATE_NON_STRUCT}\n'
                        f'Time to live: {TIME_TO_LIVE}\n'
+                       f'Intraspecies Fertility Range: ({MIN_FERTILITY_PROBABILITY}, '
+                       f'{MAX_FERTILITY_PROBABILITY})\n'
+                       f'Cross-Species Fertility Range: ({MIN_CROSS_FERTILITY_PROBABILITY}, '
+                       f'{MAX_CROSS_FERTILITY_PROBABILITY})\n'
                        '----------------\n')
 
         self.log_fitness()
@@ -102,6 +111,10 @@ class Monitor:
                        f'Number of hidden neurons: {HIDDEN_NEURONS}\n'
                        f'Mutation Rate Structural: {MUTATION_RATE_STRUCT}, Non-Structural: {MUTATION_RATE_NON_STRUCT}\n'
                        f'Time to live: {TIME_TO_LIVE}\n'
+                       f'Intraspecies Fertility Range: ({MIN_FERTILITY_PROBABILITY}, '
+                       f'{MAX_FERTILITY_PROBABILITY})\n'
+                       f'Cross-Species Fertility Range: ({MIN_CROSS_FERTILITY_PROBABILITY}, '
+                       f'{MAX_CROSS_FERTILITY_PROBABILITY})\n'
                        '----------------\n')
 
         self.log_population()
