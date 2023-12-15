@@ -7,3 +7,4 @@
 5. movie4: 1min movie showing 4 gens and 1 species dominance.
 6. movie5: 30s movie showing 2.5+ gens and many species at start (relaxed COMPATIBILITY_THRESH parameter)
 7. movie6: 10 gen movie showing growth of organisms from 300 to 2000.
+8. movie7: movie showing doubled initial gene length and how one organism dominates.
