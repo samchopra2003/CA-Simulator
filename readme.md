@@ -403,7 +403,7 @@ survives with all others dying out. This dominant species is incredibly predator
 much of the other world species. One takeaway from this experiment is that more sophisticated
 species are likely to kill the others to protect their own.
 
-## Population and Fitness Plots
+### Population and Fitness Plots
 
 In this section I will feature the population and fitness plots from three of the most interesting 
 movie results. 
