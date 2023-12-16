@@ -451,9 +451,9 @@ which will parallelize more operations. I might even have to run the code on a m
 for the simulation to terminate in a reasonable period of time.
 
 I also wish to expand on the current project, and add more complexity such as food and a hunger
-function. This would motivate organims to evolve to find food in different ways, whether as a 
+function. This would motivate organisms to evolve to find food in different ways, whether as a 
 carnivore, omnivore or herbivore. In addition, I wish to add more complex organisms to
-the simulator, specifically multicellular organisms. I have already tried creating a multicellular
+the simulator, specifically multicellular organisms. I have already tried creating multicellular
 snake-like organisms which is present in the snake branch of this repository.
 
 
