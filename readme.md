@@ -349,6 +349,112 @@ the simulation, I am capturing the simulation as a movie in the form of an .mp4 
 concurrently logging the average fitness and population. These logged metrics will be used to 
 generate visual plots for better understanding and analysis.
 
+## Simulation Results
+
+### Movies
+
+I have recorded a few movies showing the results of some simulations. You can find these .mp4 files
+in the assets/movies directory. The readme in the assets folder has a brief explanation for each 
+movie, and for more insight, view the logs in the src/logs directory to see the parameters used in 
+each simulation. The naming convention in the movies maps to the logs, for both fitness and 
+population.
+
+Movie0 was a test movie to see whether the simulation worked as intended and whether we could
+capture video. 
+
+In movie1 you can see the organisms form clusters or **colonies** after generation 0 has died. 
+It is interesting to see that the dominant species (both in fitness and population) makes up most
+of these colonies.
+
+![img.png](assets/movie1colonies.png)
+
+Movie2 is a case of insufficient genetic diversity and rate of reproduction. Only around 80
+organisms are alive once generation 0 passes away. Since there are too few organisms distributed
+over a relatively large world area and an unbalanced sex ratio, organisms are unable to 
+find mates of the opposite gender. As a result, total extinction occurs, and life is unable
+to continue.
+
+Movie3 is another case where colonies have formed after a few generations. Similar to movie1, 
+there is a species which is dominant in terms of population, however, it is least-fit species.
+
+Movie4 is most similar to movie3, but intriguingly forms colonies on the world border.
+
+![img.png](assets/movie4bordercolonies.png)
+
+Movie5 shows similar behavior to movie4. However, this time the simulation begins with 42 
+distinct species, as I narrowed the COMPATIBILITY_THRESH parameter, which means there are more organisms
+likely to be genetically incompatible with existing species.
+
+Movie 6 is one of the most impressive results I have observed. In this simulation, the 
+starting population was around 300. Despite a sudden decline in the population to 100, due 
+to generation 0 dying out, the world is able to repopulate itself, and form complex
+colonies, composed of different species. After 10 generations, the world reaches a population of
+2000 organisms, in spite of a tremendous wipe out at the start, indicating the strength of
+biodiversity and fertility of organisms. Also note that as colonies form, predation does not
+occur and species help one other to expand the colony.
+
+![img.png](assets/movie6colonies.png)
+
+I wanted to conduct one experiment with a greater starting gene length, and thus doubled the initial
+gene length from 8 to 16. This increase in gene length means that organisms have more
+synaptic connection, and are thus more sophisticated. This movie had similar results to movie 4, where one colony is 
+formed along the border. However, it is significant that within 2 generations, only 1 species
+survives with all others dying out. This dominant species is incredibly predatory, as it kills
+much of the other world species. One takeaway from this experiment is that more sophisticated
+species are likely to kill the others to protect their own.
+
+## Population and Fitness Plots
+
+In this section I will feature the population and fitness plots from three of the most interesting 
+movie results. 
+
+![img.png](assets/plots/movie1.png)
+
+The plot from movie 1 shows that the world population recovers despite generation 0 dying out. 
+We also notice that the fitness increase monotonically with respect to time. After much of
+the population dies out (generation 0), the fitness undergoes an incline, showing that the
+more fit organisms and species survive while the less fit are killed: **natural selection**.
+
+![movie6.png](assets/plots/movie6.png)
+
+The plot from movie 6 shows the recovery of population much like the plot in movie 1. 
+Note that unlike the fitness in movie1, the fitness in movie6 reaches a convergence, which 
+might be because species are well homogenized and instead of trying to compete (no predation),
+have a **symbiotic relationship**.
+
+![movie6.png](assets/plots/movie7.png)
+
+Movie7 shows similar trends to movie1, however, this time, instead of natural selection
+choosing multiple species, only one is chosen. Another interesting note is that magnitude
+of fitness is small relative to movie1. In the context of optimization, we could attribute this
+to the elimination of much of the search space prematurely, and getting trapped in a local
+minima.
+
+## Conclusion and Future Work
+
+In summary, I've developed a sophisticated biological simulator designed for emulating living systems. 
+The simulator employs a meticulously crafted genome to construct neural networks for each organism.
+Using the principles of evolution, the system selectively prunes less fit organisms, 
+allowing the fitter ones to propagate their genetic traits through procreation.
+
+The simulations vividly depict various biological phenomena, including the emergence of colonies, 
+symbiotic relationships, and natural selection. Notably, diverse species 
+showcase the capacity to collaborate and establish intricate colonies devoid of predation. These
+colonies consist of species in symbiotic relationships. In contrast, some simulations 
+contain predatory species that, driven by the forces of natural selection, 
+eliminate all other organisms within their ecosystem.
+
+This project has been transformative and has pushed my boundaries as an engineer and student. In the
+future, I wish to record longer simulations for a few hundred or thousand generations, which will
+allow us to visualize evolution more clearly. This will require significant code optimizations for the GPU,
+which will parallelize more operations. I might even have to run the code on a more powerful machine
+for the simulation to terminate in a reasonable period of time.
+
+I also wish to expand on the current project, and add more complexity such as food and a hunger
+function. This would motivate organims to evolve to find food in different ways, whether as a 
+carnivore, omnivore or herbivore. In addition, I wish to add more complex organisms to
+the simulator, specifically multicellular organisms. I have already tried creating a multicellular
+snake-like organisms which is present in the snake branch of this repository.
 
 
 ## References
