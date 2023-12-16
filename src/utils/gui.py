@@ -16,7 +16,7 @@ def render_image(img, default_size=True, dsize=None):
 
 
 movie_recorder = None
-MOVIE_RECORDER_FRAME_RATE = 100
+MOVIE_RECORDER_FRAME_RATE = 20
 
 
 def render_video(img, monitor, default_size=True, dsize=None, frame_rate=10, record_movie=False,
